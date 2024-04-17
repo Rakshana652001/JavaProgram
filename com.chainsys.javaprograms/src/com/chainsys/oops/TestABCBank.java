@@ -28,10 +28,9 @@ public class TestABCBank
 			TestABCBank.validationForName();
 		}
 		return name;
+		
     	
     }
-    
-   
     
     public static String validationForAccountNumber()
     {
@@ -70,9 +69,12 @@ public class TestABCBank
 			return phoneNumber;
 			
 		}
+		
 		return phoneNumber;
 		
     }
+    
+    
     
     public static int deposite(int balance, int amount)
     {
@@ -87,6 +89,42 @@ public class TestABCBank
 		{
 			System.out.println("Invalid Deposite amount!!!");
 			TestABCBank.deposite(balance, amount);
+		}
+		return balance;
+
+    }
+    
+    public static int deposite(int balance, long phoneNumber)
+    {
+    	
+    	if(amount>0)
+		{
+	    	System.out.println("Deposite amount: "+amount);
+			balance = balance + amount;
+			return balance;
+		}
+		else
+		{
+			System.out.println("Invalid Deposite amount!!!");
+			TestABCBank.deposite(balance, phoneNumber);
+		}
+		return balance;
+
+    }
+    
+    public static int deposite(int balance, String accountNumber)
+    {
+    	
+    	if(amount>0)
+		{
+	    	System.out.println("Deposite amount: "+amount);
+			balance = balance + amount;
+			return balance;
+		}
+		else
+		{
+			System.out.println("Invalid Deposite amount!!!");
+			TestABCBank.deposite(balance, accountNumber);
 		}
 		return balance;
 
@@ -108,7 +146,10 @@ public class TestABCBank
 		System.out.println("Phone number: "+bankDetails.getPhoneNumber());	
 		System.out.println("Balance: "+balance);
 		bankDetails.setAmountToDeposite(TestABCBank.deposite(balance,amount));
+		//bankDetails.setAmountToDeposite(TestABCBank.deposite(balance,phoneNumber));
+		//bankDetails.setAmountToDeposite(TestABCBank.deposite(balance,accountNumber));
 		System.out.println("After deposite : "+bankDetails.getAmountToDeposite());
+		scan.close();
 	}
 
 }
