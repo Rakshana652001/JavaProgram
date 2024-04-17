@@ -6,11 +6,13 @@ public class ABCBank
 	long phoneNumber;
 	String accountNumber;
 	int amountToDeposite;
+	char getLoan;
+	long loanAmount,monthlyPay;
 	public String getUserName() {
 		return userName;
 	}
-	public String setUserName(String userName) {
-		return this.userName = userName;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public long getPhoneNumber() {
 		return phoneNumber;
@@ -30,10 +32,29 @@ public class ABCBank
 	public void setAmountToDeposite(int amountToDeposite) {
 		this.amountToDeposite = amountToDeposite;
 	}
+	public char getGetLoan() {
+		return getLoan;
+	}
+	public void setGetLoan(char getLoan) {
+		this.getLoan = getLoan;
+	}
+	public long getLoanAmount() {
+		return loanAmount;
+	}
+	public void setLoanAmount(long loanAmount) {
+		this.loanAmount = loanAmount;
+	}
+	public long getMonthlyPay() {
+		return monthlyPay;
+	}
+	public void setMonthlyPay(long monthlyPay) {
+		this.monthlyPay = monthlyPay;
+	}
 	@Override
 	public String toString() {
 		return "ABCBank [userName=" + userName + ", phoneNumber=" + phoneNumber + ", accountNumber=" + accountNumber
-				+ ", amountToDeposite=" + amountToDeposite + "]";
-
+				+ ", amountToDeposite=" + amountToDeposite + ", getLoan=" + getLoan + ", loanAmount=" + loanAmount
+				+ ", monthlyPay=" + monthlyPay + "]";
 	}
+	
 }
