@@ -6,12 +6,12 @@ import java.util.regex.Pattern;
 
 public class TestABCBank 
 {
-	static String name,bankNumber;
+	static String name,bankNumber, concat;
 	static String accountNumber;
 	static long phoneNumber;
 	static int balance, amount;
 	static String firstFourNumber;
-    static int count = 0;
+    static int count = 1;
     public static String validationForName()
     {
     	Scanner scan = new Scanner(System.in);
@@ -29,7 +29,6 @@ public class TestABCBank
 			TestABCBank.validationForName();
 		}
 		return name;
-		
     	
     }
     
@@ -52,24 +51,22 @@ public class TestABCBank
 		
     }
     
-    public static void generateAccountNumber()
+    public static String generateAccountNumber()
     {
     	
     	Scanner scan = new Scanner(System.in);
     	bankNumber = "35561";
-    	long getPhoneNumber = TestABCBank.validationForPhoneNumber();
-    	String forLength = Long.toString(getPhoneNumber);
-    	String forSubString = Long.toString(getPhoneNumber);
+    	String forLengthAndSubString = Long.toString(phoneNumber);
     	String forCount = Integer.toString(count);
-    	if (forLength.length() > 4)
+    	if (forLengthAndSubString.length() > 4)
     	{
-    	    firstFourNumber = forSubString.substring(0, 4);
-    	    String concat = bankNumber.concat(firstFourNumber).concat(forCount);
-    	    count++;
-    	    System.out.println(concat);    	    
+    	    firstFourNumber = forLengthAndSubString.substring(0, 4);
+    	    concat = bankNumber.concat(firstFourNumber).concat(forCount);
+    	    count++;    
     	} else {
-    		firstFourNumber = forSubString;
-    	}    
+    		firstFourNumber = forLengthAndSubString;
+    	}
+		return concat;    
     }
 
     
@@ -133,7 +130,8 @@ public class TestABCBank
 		Scanner scan = new Scanner(System.in);
 		ABCBank bankDetails = new ABCBank();
 		bankDetails.setUserName(TestABCBank.validationForName());
-		TestABCBank.generateAccountNumber();
+		bankDetails.setPhoneNumber(validationForPhoneNumber());;
+		bankDetails.setAccountNumber(TestABCBank.generateAccountNumber());
 		balance = 1000;
 		System.out.println("Enter amount for deposite: ");
 		amount = scan.nextInt();
