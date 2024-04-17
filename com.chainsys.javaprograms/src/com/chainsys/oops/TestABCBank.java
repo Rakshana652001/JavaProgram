@@ -144,6 +144,7 @@ public class TestABCBank
     					break;
     				default:
     					System.out.println("loan available only 50,000 to 1,00,000");
+    					testABCBank.loanIntrestCalculation();
     			}
     		}
     		else if(getLoan == 'n' || getLoan == 'N')
