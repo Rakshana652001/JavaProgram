@@ -114,33 +114,37 @@ public class TestABCBank
 
 
 
-	public int loanIntrestCalculation()
+	public void loanIntrestCalculation()
     {
     	
     	if(balance>0)
     	{
     		System.out.println("ABC bank Loan Intrest Plans");
-    		System.out.println("do you intrested to get Loan ?");
+    		System.out.println("do you intrested to get Loan ?(y/n)");
     		char getLoan = scan.next().charAt(0);
     		if(getLoan == 'y' || getLoan == 'Y')
     		{
-    			System.out.println("Then enter how much loan amount you want!!!");
+    			System.out.println("Our plans.\nEnter(1 Or 2)\n1: 50,000\n2: 1,00,000");
     			amountForLoan = scan.nextInt();
     			switch(amountForLoan)
     			{
-    				case 50000:
+    				case 1:
     					System.out.println("For 50,000 Interest rate is 5%");
     					percent = (int) (5*50000)/100;
     					time = 12;
     					intrest = 50000+percent*time;
-    					System.out.println("Loan amount including intrest"+intrest);
+    					System.out.println("Intrest: "+intrest);
+    					System.out.println("Time period to pay: "+time);
+    					System.out.println("Loan amount including intrest: "+intrest+"\n");
     					break;
-    				case 100000:
-    					System.out.println("For 1,00,000 Interest rate is 7%");
+    				case 2:
+    					System.out.println("For 1,00,000 Loan Interest rate is 7%");
     					percent = (int) (7*100000)/100;
     					time = 12;
     					intrest = 100000+percent*time;
-    					System.out.println("Loan amount including intrest"+intrest);
+    					System.out.println("Intrest: "+intrest);
+    					System.out.println("Time period to pay: "+time);
+    					System.out.println("Loan amount including intrest: "+intrest+"\n");
     					break;
     				default:
     					System.out.println("loan available only 50,000 to 1,00,000");
@@ -149,7 +153,7 @@ public class TestABCBank
     		}
     		else if(getLoan == 'n' || getLoan == 'N')
     		{
-    			System.out.println("Thank you!!! If you need any loan please contact us!!!");
+    			System.out.println("Thank you!!! If you need any loan please contact us!!!\n");
     		}
     		else
     		{
@@ -157,7 +161,6 @@ public class TestABCBank
     			testABCBank.loanIntrestCalculation();
     		}
     	}
-		return 0;
     }
 	public static void main(String[] args) 
 	{
