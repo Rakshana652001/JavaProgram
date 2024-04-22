@@ -1,10 +1,12 @@
 package com.chainsys.oops;
 
-public class SBIBank extends TestABCBank 
+public class SBIBank extends AbstractClass 
 {
+		ABCBank bankDetails = new ABCBank();
+		
 		public void loanIntrestCalculation()
 	    {
-					ABCBank bankDetails = new ABCBank();
+					
 					int getLoan = bankDetails.setGetLoan(1);
 	    			System.out.println("SBI bank Home Loan Scheme");
 	    			System.out.println("do you intrested to get Loan ?(y/n)");
@@ -59,9 +61,21 @@ public class SBIBank extends TestABCBank
 	        		}
 		    		else if( yesOrNo == 'n' || yesOrNo == 'N')
 		        	{
-		        		System.out.println("Thank you!!! If you need any loan please contact us!!!\n");
+		        		System.out.println("Thank you!!! If you need any loan please contact us!!!");
 		        	}
 	        	}
-	}
+		
+		public void educationLoan() 
+		{
+			
+		}
+
+		@Override
+		public void businessLoan() {
+			// TODO Auto-generated method stub
+			
+		}
+
+}
 	
 
