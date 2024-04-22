@@ -4,10 +4,8 @@ package com.chainsys.oops;
 public class LeaveManagementSystemClass {
 	int employeeID;
 	String dateOfLeave;
-	int dateFrom, dateTo;
 	String reasonOfLeave;
-	long payOff;
-	String approval, noApproval;
+	int numberOfDays;
 	public int getEmployeeID() {
 		return employeeID;
 	}
@@ -20,49 +18,22 @@ public class LeaveManagementSystemClass {
 	public void setDateOfLeave(String dateOfLeave) {
 		this.dateOfLeave = dateOfLeave;
 	}
-	public int getDateFrom() {
-		return dateFrom;
-	}
-	public void setDateFrom(int dateFrom) {
-		this.dateFrom = dateFrom;
-	}
-	public int getDateTo() {
-		return dateTo;
-	}
-	public void setDateTo(int dateTo) {
-		this.dateTo = dateTo;
-	}
 	public String getReasonOfLeave() {
 		return reasonOfLeave;
 	}
-	public void setReasonOfLeave(String reasonFOrLeave) {
-		this.reasonOfLeave = reasonFOrLeave;
+	public void setReasonOfLeave(String reasonOfLeave) {
+		this.reasonOfLeave = reasonOfLeave;
 	}
-	public long getPayOff() {
-		return payOff;
+	public int getNumberOfDays() {
+		return numberOfDays;
 	}
-	public void setPayOff(long payOff) {
-		this.payOff = payOff;
-	}
-	public String getApproval() {
-		return approval;
-	}
-	public void setApproval(String approval) {
-		this.approval = approval;
-	}
-	public String getNoApproval() {
-		return noApproval;
-	}
-	public void setNoApproval(String noApproval) {
-		this.noApproval = noApproval;
+	public void setNumberOfDays(int numberOfDays) {
+		this.numberOfDays = numberOfDays;
 	}
 	@Override
 	public String toString() {
-		return "LeaveManagementSystemClass [employeeID=" + employeeID + ", dateOfLeave=" + dateOfLeave + ", dateFrom="
-				+ dateFrom + ", dateTo=" + dateTo + ", reasonOfLeave=" + reasonOfLeave + ", payOff=" + payOff
-				+ ", approval=" + approval + ", noApproval=" + noApproval + "]";
+		return "LeaveManagementSystemClass [employeeID=" + employeeID + ", dateOfLeave=" + dateOfLeave
+				+ ", reasonOfLeave=" + reasonOfLeave + ", numberOfDays=" + numberOfDays + "]";
 	}
 	
-	
-
 }
