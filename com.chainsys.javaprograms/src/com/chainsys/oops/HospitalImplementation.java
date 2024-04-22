@@ -25,22 +25,34 @@ public class HospitalImplementation implements HospitalInterface
 		}
 		
 	}
-	
-	public void hospitalLocation()
-	{
+	@Override
+	public void hospitalLocation() {
 		System.out.println("Location of the hospital: ");
 		String location = scan.next();
-		hospitalDetails.setNameofhospital(location);
+		hospitalDetails.setLocationofhospital(location);
 		System.out.println("Hospital location: "+hospitalDetails.getLocationofhospital());
+		
 	}
-
-	public void doctorsCount()
-	{
+	@Override
+	public void doctorsCount() {
 		System.out.println("Doctors count: ");
 		int docCount = scan.nextInt();
 		hospitalDetails.setDoctorscount(docCount);
 		System.out.println("Doctors Count: "+hospitalDetails.getDoctorscount());
+		
 	}
+	@Override
+	public void patientscount() {
+		System.out.println("Patiens count: ");
+		int patientscount = scan.nextInt();
+		hospitalDetails.setPatientscount(patientscount);
+		System.out.println("Doctors Count: "+hospitalDetails.getPatientscount());
+		
+	}
+	
+	
+	
 
 }
+
 

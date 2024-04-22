@@ -8,7 +8,8 @@ public class HospitalMainClass
 		HospitalImplementation hospitalDetails = new HospitalImplementation();
 		hospitalDetails.hospitalName();
 		hospitalDetails.hospitalLocation();
-		
+		hospitalDetails.doctorsCount();
+		hospitalDetails.patientscount();
 
 	}
 
