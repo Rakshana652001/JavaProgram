@@ -3,6 +3,7 @@ package com.chainsys.oops;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
+import java.util.Date;
 
 public class LeaveManagementSystemMain 
 {
@@ -23,12 +24,14 @@ public class LeaveManagementSystemMain
 		String dateOfLeave = scan.next();
 		SimpleDateFormat formatting = new SimpleDateFormat("dd/MM/yyyy");  
 		 try {  
-	            Comparable<java.util.Date> date = formatting.parse(dateOfLeave);  
+	            Date date = formatting.parse(dateOfLeave);  
 	            format = formatting.format(date);  
-	        } catch (ParseException e) {  
+	         } 
+		 catch (ParseException e) 
+		 {  
 	            System.out.println("Invalid date format");  
-	        }
-		return format; 
+	     }
+		 return format; 
 	}
 	
 	public static String reasonOfLeave()
