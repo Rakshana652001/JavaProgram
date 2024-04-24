@@ -1,6 +1,5 @@
 package com.chainsys.oops;
 
-
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -13,7 +12,7 @@ public class LeaveManagementSystemMain
 	static int numberOfDays, numberOfDaysE, months, number, stringToInt, dayss=5, enterDepartment, pdNumber;
 	static String id, passWord,leaveDate, format, leaveReason, employeeName, devoloper, admin, security, accounts, marketing, enterDepartmentIToS;
 	static Date dateOfLeave;
-	static long phoneNumber;
+	static long phoneNumber, salary, perDaySalary;
 	
 	public static String dateOfLeave()
 	{
@@ -82,7 +81,7 @@ public class LeaveManagementSystemMain
 				break;
 			case 2:
 				LeaveManagementSystemMain.reasonOfLeave();
-				LeaveManagementSystemMain.numberOfDays();
+				
 		}
 	}
 	
@@ -221,7 +220,9 @@ public class LeaveManagementSystemMain
 	
 	public static String department()
 	{
-		System.out.print("\nDepartments: \n1.Devoloper\n2.Accounts\n3.Admin\n4.Security\n5.Marketing");
+		System.out.println("\nDepartments");
+		System.out.println("```````````");
+		System.out.print("1.Devoloper\n2.Accounts\n3.Admin\n4.Security\n5.Marketing");
 		System.out.println("\nEnter your Department in number(1,2...): ");
 		enterDepartment = scan.nextInt();
 		switch(enterDepartment)
@@ -247,7 +248,13 @@ public class LeaveManagementSystemMain
 	}
 	
 	
-	
+	public static long totalSalary()
+	{
+		System.out.println("Enter total salary: ");
+		salary = scan.nextLong();
+		perDaySalary = (salary/30);
+		return perDaySalary;
+	}
 	
 	public static long payOff()
 	{
@@ -263,15 +270,15 @@ public class LeaveManagementSystemMain
 					break;
 				case 3:
 					System.out.println("You exceded more than 2 days in this month for emergency leave");
-					System.out.println("Payoff will be detected 50/day");
+					System.out.println("Payoff for "+numberOfDaysE+" days: "+(perDaySalary*numberOfDaysE));
 					break;
 				case 4:
 					System.out.println("You exceded more than 2 days in this month for emergency leave");
-					System.out.println("Payoff will be detected 50/day.");
+					System.out.println("Payoff for "+numberOfDaysE+" days: "+(perDaySalary*numberOfDaysE));
 					break;
 				case 5:
 					System.out.println("You exceded more than 2 days in this month for emergency leave");
-					System.out.println("Payoff will be detected 50/day.");
+					System.out.println("Payoff for "+numberOfDaysE+" days: "+(perDaySalary*numberOfDaysE));
 					break;
 			}
 			
@@ -285,7 +292,7 @@ public class LeaveManagementSystemMain
 		{
 			if(numberOfDays < 10)
 			{
-				System.out.println("Payoff detected (50/Day)");
+				System.out.println("Payoff for "+numberOfDays+" detected: "+(perDaySalary*numberOfDays));
 			}
 			else if (numberOfDays > 10)
 			{
@@ -325,7 +332,8 @@ public class LeaveManagementSystemMain
 		leaveManagementSystem.setContactNumber(phoneNumber);
 		leaveManagementSystem.setDateOfLeave(LeaveManagementSystemMain.dateOfLeave());
 		leaveManagementSystem.setReasonOfLeave(leaveReason);
-		leaveManagementSystem.setNumberOfDays(numberOfDays);
+		leaveManagementSystem.setNumberOfDays(LeaveManagementSystemMain.numberOfDays());
+		LeaveManagementSystemMain.totalSalary();
 		leaveManagementSystem.setDepartment(LeaveManagementSystemMain.department());
 		System.out.println("\nEmployeeName: "+leaveManagementSystem.getEmployeeName());
 		System.out.println("EmployeeID: "+(leaveManagementSystem.getEmployeeID()));
