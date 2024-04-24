@@ -145,7 +145,7 @@ public class LeaveManagementSystemMain
 			}
 			else if (numberOfDays > 10)
 			{
-				System.out.println("Get Permission from your manager.");
+				System.out.println("Get Permission from your manager directly.");
 			}
 			return numberOfDays;
 		}
