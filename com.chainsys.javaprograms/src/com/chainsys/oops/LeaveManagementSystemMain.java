@@ -12,7 +12,7 @@ public class LeaveManagementSystemMain
 {
 	static Scanner scan = new Scanner(System.in);
 	static int numberOfDays, numberOfDaysE, months, number, stringToInt, dayss=5, enterDepartment, pdNumber;
-	static String id, idCheck, passWord, passWordC,rePassword, leaveDate, format, leaveReason, employeeName, devoloper, admin, security, accounts, marketing, gmail;
+	static String id, idCheck, passWord, passWordC,rePassword, leaveDate, format, leaveReason, employeeName, lastName,devoloper, admin, security, accounts, marketing, gmail, concat;
 	static Date dateOfLeave;
 	static long phoneNumber, salary, perDaySalary;
 	
@@ -172,13 +172,26 @@ public class LeaveManagementSystemMain
 	{
 		System.out.println("Personal Details:");
 		System.out.println("`````````````````");
-		System.out.print("Enter your Name: ");
+		System.out.print("Enter your First Name: ");
 		employeeName = scan.next();
 		Pattern p = Pattern.compile("^[a-zA-Z]*$");
 		Matcher m = p.matcher(employeeName);
 		if(m.find())
 		{
-			return employeeName;
+			System.out.println("Enter your Last Name: ");
+			lastName = scan.next();
+			Pattern p1 = Pattern.compile("^[a-zA-Z]*$");
+			Matcher m11 = p1.matcher(lastName);
+			if(m11.find())
+			{
+				concat = employeeName.concat(lastName);
+			}
+			else
+			{
+				System.out.println("\nLast Name should contain only alphabets like Initials or names.");
+				System.out.println("Eg, \n.S, .T, natasha.");
+				LeaveManagementSystemMain.employeeName();
+			}
 		}
 		else
 		{
@@ -186,7 +199,7 @@ public class LeaveManagementSystemMain
 			System.out.println("Eg, \nSam,Steve,Tony,Natasha.");
 			LeaveManagementSystemMain.employeeName();
 		}
-		return null;
+		return concat;
 	}
 	
 	public static long contactNumber()
@@ -406,7 +419,7 @@ public class LeaveManagementSystemMain
 		System.out.println("                ======================\n");
 		LeaveManagementSystemMain.signUp();
 		LeaveManagementSystemMain.personalDetails();
-		leaveManagementSystem.setEmployeeName(employeeName);
+		leaveManagementSystem.setEmployeeName(concat);
 		leaveManagementSystem.setEmployeeID(stringToInt);
 		leaveManagementSystem.setContactNumber(phoneNumber);
 		leaveManagementSystem.setDateOfLeave(LeaveManagementSystemMain.dateOfLeave());
