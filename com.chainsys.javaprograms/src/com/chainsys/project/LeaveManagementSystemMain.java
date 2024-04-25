@@ -15,7 +15,7 @@ public class LeaveManagementSystemMain
 	accounts, marketing, gmail, concat, phoneNumber, emergencyContact;
 	static Date dateOfLeave;
 	static long salary, perDaySalary;
-	static int stringToint1, stringToint2;
+	static long stringToint1, stringToint2;
 	
 	
 	public static String dateOfLeave()
@@ -215,7 +215,7 @@ public class LeaveManagementSystemMain
 		Matcher m = p.matcher(phoneNumber);
 		if(m.find())
 		{
-			stringToint1 = Integer.parseInt(phoneNumber);
+			stringToint1 = Long.parseLong(phoneNumber);
 			return stringToint1;
 		}
 		else
@@ -235,7 +235,7 @@ public class LeaveManagementSystemMain
 		Matcher m = p.matcher(emergencyContact);
 		if(m.find())
 		{
-			stringToint2 = Integer.parseInt(emergencyContact);
+			stringToint2 = Long.parseLong(emergencyContact);
 			return stringToint2;
 		}
 		else
@@ -468,8 +468,8 @@ public class LeaveManagementSystemMain
 		LeaveManagementSystemMain.personalDetails();
 		leaveManagementSystem.setEmployeeName(concat);
 		leaveManagementSystem.setEmployeeID(stringToInt);
-		leaveManagementSystem.setContactNumber(phoneNumber);
-		leaveManagementSystem.setEmergencyContact(emergencyContact);
+		leaveManagementSystem.setContactNumber(stringToint1);
+		leaveManagementSystem.setEmergencyContact(stringToint2);
 		leaveManagementSystem.setDateOfLeave(LeaveManagementSystemMain.dateOfLeave());
 		leaveManagementSystem.setReasonOfLeave(leaveReason);
 		leaveManagementSystem.setNumberOfDays(LeaveManagementSystemMain.numberOfDays());
