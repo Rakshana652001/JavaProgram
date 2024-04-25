@@ -4,8 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-
 import java.util.Date;
 
 public class LeaveManagementSystemMain 
@@ -14,7 +12,7 @@ public class LeaveManagementSystemMain
 	static int numberOfDays, numberOfDaysE, months, number, stringToInt, dayss=5, enterDepartment, pdNumber;
 	static String id, idCheck, passWord, passWordC,rePassword, leaveDate, format, leaveReason, employeeName, lastName,devoloper, admin, security, accounts, marketing, gmail, concat;
 	static Date dateOfLeave;
-	static long phoneNumber, salary, perDaySalary;
+	static long phoneNumber, emergencyContact, salary, perDaySalary;
 	
 	
 	public static String dateOfLeave()
@@ -178,7 +176,7 @@ public class LeaveManagementSystemMain
 		Matcher m = p.matcher(employeeName);
 		if(m.find())
 		{
-			System.out.println("Enter your Last Name: ");
+			System.out.print("Enter your Last Name: ");
 			lastName = scan.next();
 			Pattern p1 = Pattern.compile("^[a-zA-Z]*$");
 			Matcher m11 = p1.matcher(lastName);
@@ -189,7 +187,7 @@ public class LeaveManagementSystemMain
 			else
 			{
 				System.out.println("\nLast Name should contain only alphabets like Initials or names.");
-				System.out.println("Eg, \n.S, .T, natasha.");
+				System.out.println("Eg, \n S, T, N");
 				LeaveManagementSystemMain.employeeName();
 			}
 		}
@@ -345,6 +343,26 @@ public class LeaveManagementSystemMain
 		return perDaySalary;
 	}
 	
+	
+	public static void emergencyNumber()
+	{
+		System.out.println("Emergency contact: ");
+		emergencyContact = scan.nextLong();
+		String emergencyContactS = Long.toString(emergencyContact);
+		Pattern p =Pattern.compile("^\\d{10}$");
+		Matcher m = p.matcher(emergencyContactS);
+		if(m.find())
+		{
+			System.out.println("Emergency contact: "+emergencyContact);
+		}
+		else
+		{
+			System.out.println("\nPhone number should contain only 10 integers!!!");
+			LeaveManagementSystemMain.emergencyNumber();
+		}
+	}
+	
+	
 	public static long payOff()
 	{
 		if(leaveReason == "Emergency")
@@ -415,8 +433,8 @@ public class LeaveManagementSystemMain
 	public static void main(String[] args) 
 	{
 		LeaveManagementSystemClass leaveManagementSystem = new LeaveManagementSystemClass();
-		System.out.println("                Leave Application Form");
-		System.out.println("                ======================\n");
+		System.out.println("              Leave Application Form");
+		System.out.println("              ======================\n");
 		LeaveManagementSystemMain.signUp();
 		LeaveManagementSystemMain.personalDetails();
 		leaveManagementSystem.setEmployeeName(concat);
@@ -434,6 +452,8 @@ public class LeaveManagementSystemMain
 		System.out.println("Leave Reason: "+(leaveManagementSystem.getReasonOfLeave()));
 		System.out.println("Number of days leave: "+(leaveManagementSystem.getNumberOfDays()));	
 		LeaveManagementSystemMain.payOff();
+		LeaveManagementSystemMain.emergencyNumber();
+
 		
 	}
 
