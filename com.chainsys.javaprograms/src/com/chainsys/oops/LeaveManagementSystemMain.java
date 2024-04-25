@@ -169,7 +169,7 @@ public class LeaveManagementSystemMain
 		case 2:
 				System.out.println("Sick Leave");
 				leaveReason = "Sick";
-				System.out.println("Allowed only for 10days, if you take more than ten days payoff + work from home");
+				System.out.println("Allowed only for 10days, \nif you take more than ten days payoff + work from home");
 				return leaveReason;
 		case 3:
 				System.out.println("Maternity Period");
@@ -323,8 +323,8 @@ public class LeaveManagementSystemMain
 	public static void main(String[] args) 
 	{
 		LeaveManagementSystemClass leaveManagementSystem = new LeaveManagementSystemClass();
-		System.out.println("Leave Application Form");
-		System.out.println("======================\n");
+		System.out.println("                Leave Application Form");
+		System.out.println("                ======================\n");
 		LeaveManagementSystemMain.login();
 		LeaveManagementSystemMain.personalDetails();
 		leaveManagementSystem.setEmployeeName(employeeName);
