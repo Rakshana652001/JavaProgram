@@ -6,7 +6,7 @@ public class LeaveManagementSystemClass {
 	String reasonOfLeave;
 	int numberOfDays;
 	String employeeName;
-	long contactNumber, emergencyContact;
+	String contactNumber, emergencyContact;
 	String department;
 	public int getEmployeeID() {
 		return employeeID;
@@ -38,16 +38,16 @@ public class LeaveManagementSystemClass {
 	public void setEmployeeName(String employeeName) {
 		this.employeeName = employeeName;
 	}
-	public long getContactNumber() {
+	public String getContactNumber() {
 		return contactNumber;
 	}
-	public void setContactNumber(long contactNumber) {
+	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
 	}
-	public long getEmergencyContact() {
+	public String getEmergencyContact() {
 		return emergencyContact;
 	}
-	public void setEmergencyContact(long emergencyContact) {
+	public void setEmergencyContact(String emergencyContact) {
 		this.emergencyContact = emergencyContact;
 	}
 	public String getDepartment() {
@@ -63,7 +63,6 @@ public class LeaveManagementSystemClass {
 				+ employeeName + ", contactNumber=" + contactNumber + ", emergencyContact=" + emergencyContact
 				+ ", department=" + department + "]";
 	}
-	
 	
 	
 }

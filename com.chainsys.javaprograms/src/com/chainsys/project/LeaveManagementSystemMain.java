@@ -10,9 +10,12 @@ public class LeaveManagementSystemMain
 {
 	static Scanner scan = new Scanner(System.in);
 	static int numberOfDays, numberOfDaysE, months, number, stringToInt, dayss=5, enterDepartment, pdNumber;
-	static String id, idCheck, passWord, passWordC,rePassword, leaveDate, format, leaveReason, employeeName, lastName,devoloper, admin, security, accounts, marketing, gmail, concat;
+	static String id, idCheck, passWord, passWordC,rePassword, leaveDate,
+	format, leaveReason, employeeName, lastName,devoloper, admin, security, 
+	accounts, marketing, gmail, concat, phoneNumber, emergencyContact;
 	static Date dateOfLeave;
-	static long phoneNumber, emergencyContact, salary, perDaySalary;
+	static long salary, perDaySalary;
+	static int stringToint1, stringToint2;
 	
 	
 	public static String dateOfLeave()
@@ -59,7 +62,7 @@ public class LeaveManagementSystemMain
 	{
 		System.out.print("Enter your EmailId: ");
 		gmail = scan.next();
-		Pattern ps = Pattern.compile("[a-z0-9_/-/.]+[@][a-z]+[/.][a-z]{2,3}");
+		Pattern ps = Pattern.compile("[a-z0-9_/-/.]+[@][a-z]+[/.][a-z]{2,3}$");
 		Matcher ms1 = ps.matcher(gmail);
 		if(ms1.find())
 		{
@@ -156,12 +159,16 @@ public class LeaveManagementSystemMain
 		System.out.println("1.Apply for Leave");
 		System.out.print("\nEnter 1 to apply for leave: ");
 		pdNumber = scan.nextInt();
-		if(pdNumber == 1)
+		String intToString = Integer.toString(pdNumber);
+		Pattern p = Pattern.compile("[1]");
+		Matcher m = p.matcher(intToString);
+		if(m.find())
 		{
 			LeaveManagementSystemMain.reasonOfLeave();
 		}
 		else
 		{
+			System.out.println("Enter 1.");
 			LeaveManagementSystemMain.personalDetails();
 		}
 	}
@@ -203,13 +210,13 @@ public class LeaveManagementSystemMain
 	public static long contactNumber()
 	{
 		System.out.print("Enter your phone number: ");
-		phoneNumber = scan.nextLong();
-		String longToString = Long.toString(phoneNumber);
+		phoneNumber = scan.next();
 		Pattern p = Pattern.compile("^\\d{10}$");
-		Matcher m = p.matcher(longToString);
+		Matcher m = p.matcher(phoneNumber);
 		if(m.find())
 		{
-			return phoneNumber;
+			stringToint1 = Integer.parseInt(phoneNumber);
+			return stringToint1;
 		}
 		else
 		{
@@ -217,7 +224,27 @@ public class LeaveManagementSystemMain
 			LeaveManagementSystemMain.contactNumber();
 		}
 		
-		return phoneNumber;
+		return stringToint1;
+	}
+	
+	public static long emergencyNumber()
+	{
+		System.out.print("Emergency contact: ");
+		emergencyContact = scan.next();
+		Pattern p =Pattern.compile("^\\d{10}$");
+		Matcher m = p.matcher(emergencyContact);
+		if(m.find())
+		{
+			stringToint2 = Integer.parseInt(emergencyContact);
+			return stringToint2;
+		}
+		else
+		{
+			System.out.println("\nPhone number should contain only 10 integers!!!");
+			LeaveManagementSystemMain.emergencyNumber();
+		}
+		return stringToint2;
+		
 	}
 	
 	
@@ -230,7 +257,10 @@ public class LeaveManagementSystemMain
 		System.out.println("1.Emergency\n2.Sick\n3.Maternity Leave");
 		System.out.print("\nEnter(1/2/3): ");
 		number = scan.nextInt();
-		if(number<=3)
+		String numberToString = Integer.toString(number);
+		Pattern p = Pattern.compile("^[1-3]$");
+		Matcher m = p.matcher(numberToString);
+		if(m.find())
 		{
 			switch (number)
 			{
@@ -263,35 +293,45 @@ public class LeaveManagementSystemMain
 	
 	public static int numberOfDays()
 	{
-		if(number == 1)
+		String numberToString = Integer.toString(number);
+		Pattern p = Pattern.compile("^[1-3]$");
+		Matcher m = p.matcher(numberToString);
+		if(m.find())
 		{
-			System.out.print("\nEnter day(1/2/3/4/5): ");
-			numberOfDaysE = scan.nextInt();
-			if(numberOfDaysE>5)
+			if(number == 1)
 			{
-				System.out.println("Emergency leave only for 5 days.");
-				LeaveManagementSystemMain.numberOfDays();
+				System.out.print("\nEnter day(1/2/3/4/5): ");
+				numberOfDaysE = scan.nextInt();
+				String numbertoString1 = Integer.toString(numberOfDaysE);
+				Pattern p1 = Pattern.compile("^[1-5]$");
+				Matcher m1 = p1.matcher(numbertoString1);
+				if(m1.find())
+				{
+					System.out.println("Emergency leave only for 5 days.");
+					LeaveManagementSystemMain.numberOfDays();
+				}
+				else
+				{
+					return numberOfDaysE;
+				}
+				return numberOfDaysE;
+			}
+			else if(number == 2)
+			{
+				System.out.print("\nEnter number of days: ");
+				numberOfDays = scan.nextInt();
+				return numberOfDays;
+			}
+			else if(number == 3)
+			{
+				return 0;
 			}
 			else
 			{
-				return numberOfDaysE;
+				System.out.println("Invalid Reason!!!");
 			}
-			return numberOfDaysE;
 		}
-		else if(number == 2)
-		{
-			System.out.print("\nEnter number of days: ");
-			numberOfDays = scan.nextInt();
-			return numberOfDays;
-		}
-		else if(number == 3)
-		{
-			return 0;
-		}
-		else
-		{
-			System.out.println("Invalid Reason!!!");
-		}
+		
 		return 0;
 	}
 	
@@ -304,7 +344,10 @@ public class LeaveManagementSystemMain
 		System.out.print("1.Devoloper\n2.Accounts\n3.Admin\n4.Security\n5.Marketing");
 		System.out.println("\nEnter your Department in number(1,2...): ");
 		enterDepartment = scan.nextInt();
-		if(enterDepartment <= 5)
+		String numbertoString1 = Integer.toString(enterDepartment);
+		Pattern p1 = Pattern.compile("^[1-5]$");
+		Matcher m1 = p1.matcher(numbertoString1);
+		if(m1.find())
 		{
 			switch(enterDepartment)
 			{
@@ -344,26 +387,7 @@ public class LeaveManagementSystemMain
 	}
 	
 	
-	public static long emergencyNumber()
-	{
-		System.out.print("Emergency contact: ");
-		emergencyContact = scan.nextLong();
-		String emergencyContactS = Long.toString(emergencyContact);
-		Pattern p =Pattern.compile("^\\d{10}$");
-		Matcher m = p.matcher(emergencyContactS);
-		if(m.find())
-		{
-			return emergencyContact;
-		}
-		else
-		{
-			System.out.println("\nPhone number should contain only 10 integers!!!");
-			LeaveManagementSystemMain.emergencyNumber();
-		}
-		return emergencyContact;
-		
-	}
-	
+
 	
 	public static long payOff()
 	{
@@ -402,11 +426,14 @@ public class LeaveManagementSystemMain
 		
 		if(leaveReason == "Sick")
 		{
-			if(numberOfDays < 10)
+			String numbertoString1 = Integer.toString(numberOfDays);
+			Pattern p1 = Pattern.compile("^[1-10]$");
+			Matcher m1 = p1.matcher(numbertoString1);
+			if(m1.find())
 			{
 				System.out.println("No Payoff");
 			}
-			else if (numberOfDays > 10)
+			else
 			{
 				System.out.println("Get Permission from your manager directly.");
 			}
