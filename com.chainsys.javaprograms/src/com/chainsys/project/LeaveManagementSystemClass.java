@@ -6,7 +6,7 @@ public class LeaveManagementSystemClass {
 	String reasonOfLeave;
 	int numberOfDays;
 	String employeeName;
-	long contactNumber;
+	long contactNumber, emergencyContact;
 	String department;
 	public int getEmployeeID() {
 		return employeeID;
@@ -44,20 +44,25 @@ public class LeaveManagementSystemClass {
 	public void setContactNumber(long contactNumber) {
 		this.contactNumber = contactNumber;
 	}
+	public long getEmergencyContact() {
+		return emergencyContact;
+	}
+	public void setEmergencyContact(long emergencyContact) {
+		this.emergencyContact = emergencyContact;
+	}
 	public String getDepartment() {
 		return department;
 	}
 	public void setDepartment(String department) {
 		this.department = department;
 	}
-	
 	@Override
 	public String toString() {
 		return "LeaveManagementSystemClass [employeeID=" + employeeID + ", dateOfLeave=" + dateOfLeave
 				+ ", reasonOfLeave=" + reasonOfLeave + ", numberOfDays=" + numberOfDays + ", employeeName="
-				+ employeeName + ", contactNumber=" + contactNumber + ", department=" + department + "]";
+				+ employeeName + ", contactNumber=" + contactNumber + ", emergencyContact=" + emergencyContact
+				+ ", department=" + department + "]";
 	}
-	
 	
 	
 }

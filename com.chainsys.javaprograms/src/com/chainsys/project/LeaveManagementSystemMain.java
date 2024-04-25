@@ -51,6 +51,7 @@ public class LeaveManagementSystemMain
 		LeaveManagementSystemMain.employeeName();
 		LeaveManagementSystemMain.employeeID();
 		LeaveManagementSystemMain.contactNumber();
+		LeaveManagementSystemMain.emergencyNumber();
 		LeaveManagementSystemMain.emailId();
 	}
 	
@@ -344,22 +345,24 @@ public class LeaveManagementSystemMain
 	}
 	
 	
-	public static void emergencyNumber()
+	public static long emergencyNumber()
 	{
-		System.out.println("Emergency contact: ");
+		System.out.print("Emergency contact: ");
 		emergencyContact = scan.nextLong();
 		String emergencyContactS = Long.toString(emergencyContact);
 		Pattern p =Pattern.compile("^\\d{10}$");
 		Matcher m = p.matcher(emergencyContactS);
 		if(m.find())
 		{
-			System.out.println("Emergency contact: "+emergencyContact);
+			return emergencyContact;
 		}
 		else
 		{
 			System.out.println("\nPhone number should contain only 10 integers!!!");
 			LeaveManagementSystemMain.emergencyNumber();
 		}
+		return emergencyContact;
+		
 	}
 	
 	
@@ -440,6 +443,7 @@ public class LeaveManagementSystemMain
 		leaveManagementSystem.setEmployeeName(concat);
 		leaveManagementSystem.setEmployeeID(stringToInt);
 		leaveManagementSystem.setContactNumber(phoneNumber);
+		leaveManagementSystem.setEmergencyContact(emergencyContact);
 		leaveManagementSystem.setDateOfLeave(LeaveManagementSystemMain.dateOfLeave());
 		leaveManagementSystem.setReasonOfLeave(leaveReason);
 		leaveManagementSystem.setNumberOfDays(LeaveManagementSystemMain.numberOfDays());
@@ -447,14 +451,12 @@ public class LeaveManagementSystemMain
 		System.out.println("\nEmployeeName: "+leaveManagementSystem.getEmployeeName());
 		System.out.println("EmployeeID: "+(leaveManagementSystem.getEmployeeID()));
 		System.out.println("Contact Number: "+(leaveManagementSystem.getContactNumber()));
+		System.out.println("Emergency Contact: "+(leaveManagementSystem.getEmergencyContact()));
 		System.out.println("Department: "+(leaveManagementSystem.getDepartment()));
 		System.out.println("Applied on: "+(leaveManagementSystem.getDateOfLeave()));
 		System.out.println("Leave Reason: "+(leaveManagementSystem.getReasonOfLeave()));
 		System.out.println("Number of days leave: "+(leaveManagementSystem.getNumberOfDays()));	
-		LeaveManagementSystemMain.payOff();
-		LeaveManagementSystemMain.emergencyNumber();
-
-		
+		LeaveManagementSystemMain.payOff();		
 	}
 
 }
