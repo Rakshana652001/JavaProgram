@@ -12,7 +12,7 @@ public class LeaveManagementSystemMain
 {
 	static Scanner scan = new Scanner(System.in);
 	static int numberOfDays, numberOfDaysE, months, number, stringToInt, dayss=5, enterDepartment, pdNumber;
-	static String id, idCheck, passWord, passWordC,rePassword, leaveDate, format, leaveReason, employeeName, devoloper, admin, security, accounts, marketing, enterDepartmentIToS, gmail;
+	static String id, idCheck, passWord, passWordC,rePassword, leaveDate, format, leaveReason, employeeName, devoloper, admin, security, accounts, marketing, gmail;
 	static Date dateOfLeave;
 	static long phoneNumber, salary, perDaySalary;
 	
@@ -38,7 +38,7 @@ public class LeaveManagementSystemMain
 		}
 		else
 		{
-			System.out.println("Incorrect Id");
+			System.out.println("\nIncorrect Id");
 			System.out.println("Employee ID should contain 4integers.\nEg, 3556, 3557, 3558..");
 			LeaveManagementSystemMain.employeeID();
 			
@@ -68,7 +68,7 @@ public class LeaveManagementSystemMain
 		}
 		else
 		{
-			System.out.println("Error!!!");
+			System.out.println("\nError!!!");
 			System.out.println("Enter valid gmailID:" );
 			System.out.println("{No upper case allowed.\nEg, rakshana_2.3@gmail.com}");
 			LeaveManagementSystemMain.emailId();
@@ -95,13 +95,13 @@ public class LeaveManagementSystemMain
 			}
 			else
 			{
-				System.out.println("Your PassWord and RePassWord is not matching.");
+				System.out.println("\nYour PassWord and RePassWord is not matching.");
 				LeaveManagementSystemMain.createPassword();
 			}
 		}
 		else
 		{
-			System.out.println("Password should contain\n1.Minimum 5 characters in length.\n2.Contain Uppercase letter\n3.Lowercase letter\n3.One Special charecter\n4.Numbers");
+			System.out.println("\nPassword should contain\n1.Minimum 5 characters in length.\n2.Contain Uppercase letter\n3.Lowercase letter\n3.One Special charecter\n4.Numbers");
 			System.out.println("Eg, Kim@002, kIm#765, kiM%2313");
 			LeaveManagementSystemMain.createPassword();
 		}
@@ -124,7 +124,7 @@ public class LeaveManagementSystemMain
 		
 		else
 		{
-			System.out.println("Login Failed!!! Enter correct employeeID.");
+			System.out.println("\nLogin Failed!!! Enter correct employeeID.");
 			LeaveManagementSystemMain.login();
 			
 		}
@@ -146,7 +146,7 @@ public class LeaveManagementSystemMain
 		
 		else
 		{
-			System.out.println("Worng Password!!! Enter correct password.");				
+			System.out.println("\nWorng Password!!! Enter correct password.");				
 			LeaveManagementSystemMain.password();
 		}
 	}
@@ -161,6 +161,10 @@ public class LeaveManagementSystemMain
 		if(pdNumber == 1)
 		{
 			LeaveManagementSystemMain.reasonOfLeave();
+		}
+		else
+		{
+			LeaveManagementSystemMain.personalDetails();
 		}
 	}
 	
@@ -178,7 +182,7 @@ public class LeaveManagementSystemMain
 		}
 		else
 		{
-			System.out.println("Name should contain only alphabets.");
+			System.out.println("\nName should contain only alphabets.");
 			System.out.println("Eg, \nSam,Steve,Tony,Natasha.");
 			LeaveManagementSystemMain.employeeName();
 		}
@@ -198,7 +202,7 @@ public class LeaveManagementSystemMain
 		}
 		else
 		{
-			System.out.println("Phone number should contain only 10 integers!!!");
+			System.out.println("\nPhone number should contain only 10 integers!!!");
 			TestABCBank.validationForPhoneNumber();
 		}
 		
@@ -215,24 +219,32 @@ public class LeaveManagementSystemMain
 		System.out.println("1.Emergency\n2.Sick\n3.Maternity Leave");
 		System.out.print("\nEnter(1/2/3): ");
 		number = scan.nextInt();
-		switch (number)
+		if(number<=3)
 		{
-		case 1:
-				System.out.println("Emergency Leave");
-				leaveReason = "Emergency";
-				System.out.println("Total 5 days, 2days withoutPayoff and 3days withPayoff");
-				return leaveReason;
-		case 2:
-				System.out.println("Sick Leave");
-				leaveReason = "Sick";
-				System.out.println("Allowed only for 10days, \nif you take more than ten days payoff + work from home");
-				return leaveReason;
-		case 3:
-				System.out.println("Maternity Period");
-				leaveReason = "MaternityPeriod";
-				System.out.println("Allowed only for 6months with work from home");
-				return leaveReason;
+			switch (number)
+			{
+			case 1:
+					System.out.println("\nEmergency Leave");
+					leaveReason = "Emergency";
+					System.out.println("Total 5 days, 2days withoutPayoff and 3days withPayoff");
+					return leaveReason;
+			case 2:
+					System.out.println("\nSick Leave");
+					leaveReason = "Sick";
+					System.out.println("Allowed only for 10days, \nif you take more than ten days payoff + work from home");
+					return leaveReason;
+			case 3:
+					System.out.println("\nMaternity Period");
+					leaveReason = "MaternityPeriod";
+					System.out.println("Allowed only for 6months with work from home");
+					return leaveReason;
+			}
 		}
+		else
+		{
+			LeaveManagementSystemMain.reasonOfLeave();
+		}
+		
 		return leaveReason;
 		
 	}
@@ -281,23 +293,31 @@ public class LeaveManagementSystemMain
 		System.out.print("1.Devoloper\n2.Accounts\n3.Admin\n4.Security\n5.Marketing");
 		System.out.println("\nEnter your Department in number(1,2...): ");
 		enterDepartment = scan.nextInt();
-		switch(enterDepartment)
+		if(enterDepartment <= 5)
 		{
-			case 1:
-				devoloper = "Devoloper";
-				return devoloper;
-			case 2:
-				accounts = "Accounts";
-				return accounts;
-			case 3:
-				admin = "Admin";
-				return admin;
-			case 4:
-				security = "Security";
-				return security;
-			case 5:
-				marketing = "Marketing";
-				return marketing;
+			switch(enterDepartment)
+			{
+				case 1:
+					devoloper = "Devoloper";
+					return devoloper;
+				case 2:
+					accounts = "Accounts";
+					return accounts;
+				case 3:
+					admin = "Admin";
+					return admin;
+				case 4:
+					security = "Security";
+					return security;
+				case 5:
+					marketing = "Marketing";
+					return marketing;
+			}
+			return accounts;
+		}
+		else
+		{
+			LeaveManagementSystemMain.department();
 		}
 		return accounts;
 		
@@ -391,7 +411,6 @@ public class LeaveManagementSystemMain
 		leaveManagementSystem.setContactNumber(phoneNumber);
 		leaveManagementSystem.setDateOfLeave(LeaveManagementSystemMain.dateOfLeave());
 		leaveManagementSystem.setReasonOfLeave(leaveReason);
-		
 		leaveManagementSystem.setNumberOfDays(LeaveManagementSystemMain.numberOfDays());
 		leaveManagementSystem.setDepartment(LeaveManagementSystemMain.department());
 		System.out.println("\nEmployeeName: "+leaveManagementSystem.getEmployeeName());
