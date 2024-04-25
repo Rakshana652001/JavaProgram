@@ -7,9 +7,10 @@ import java.util.regex.Pattern;
 @SuppressWarnings("unused")
 public class GameScore 
 {
+	static Scanner scan = new Scanner(System.in);
 	public static String displayHighScorePosition()
 	{
-		Scanner scan = new Scanner(System.in);
+		
 		String playerName;
 		int positionOfPlayer;
 		System.out.println("Enter your name: ");
