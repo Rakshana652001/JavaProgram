@@ -25,7 +25,7 @@ public class Addition
 		int sub = number1-number2;
 		return sub;
 	}
-	public void multiply()
+	public void multiplication()
 	{
 		int number1, number2;
 		Scanner sc = new Scanner(System.in);
@@ -41,7 +41,7 @@ public class Addition
 		int sub = Addition.subtraction();
 		System.out.println(sub);
 		Addition rv = new Addition();
-		rv.multiply();
+		rv.multiplication();
 	}
 
 }

@@ -12,12 +12,7 @@ public class FasinatingNumber
 		multiplyByTwo = number * 2;
 		multiplyByThree = number * 3;
 		boolean flag = true;
-		if(number <= 99)
-		{
-			System.out.println("Not a fasinating number");
-			
-		}
-		else
+		if(number>100)
 		{
 			String numberString = Integer.toString(number);
 			String multiplyByTwoString = Integer.toString(multiplyByTwo);
@@ -40,6 +35,10 @@ public class FasinatingNumber
 			     }
 			}
 			
+		}
+		else
+		{
+			flag = false;
 		}
 		
 		return flag;
