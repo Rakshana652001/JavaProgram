@@ -4,15 +4,18 @@ import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+
 import java.util.Date;
 
 public class LeaveManagementSystemMain 
 {
 	static Scanner scan = new Scanner(System.in);
 	static int numberOfDays, numberOfDaysE, months, number, stringToInt, dayss=5, enterDepartment, pdNumber;
-	static String id, passWord,leaveDate, format, leaveReason, employeeName, devoloper, admin, security, accounts, marketing, enterDepartmentIToS;
+	static String id, idCheck, passWord, passWordC,rePassword, leaveDate, format, leaveReason, employeeName, devoloper, admin, security, accounts, marketing, enterDepartmentIToS, gmail;
 	static Date dateOfLeave;
 	static long phoneNumber, salary, perDaySalary;
+	
 	
 	public static String dateOfLeave()
 	{
@@ -22,72 +25,148 @@ public class LeaveManagementSystemMain
 		return dateString;
 	}
 	
-	
-	public static void login()
+	public static int employeeID()
 	{
-		System.out.println("Login");
-		System.out.println("``````");
-		System.out.print("Enter your employee ID: ");
+		System.out.print("Enter Your EmployeeID: ");
 		id = scan.next();
 		Pattern p = Pattern.compile("^\\d{4}$");
 		Matcher m = p.matcher(id);
 		if(m.find())
 		{
-			System.out.print("PassWord: ");
-			passWord = scan.next();
-			Pattern ps = Pattern.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{5,}$");
-			Matcher m1 = ps.matcher(passWord);
-			if(m1.find())
-			{
-				System.out.println("Correct Password.\nLogin Successful!!!\n");
-			}
+			stringToInt = Integer.parseInt(id);
+			return stringToInt;
+		}
+		else
+		{
+			System.out.println("Incorrect Id");
+			System.out.println("Employee ID should contain 4integers.\nEg, 3556, 3557, 3558..");
+			LeaveManagementSystemMain.employeeID();
 			
+		}
+		return stringToInt;
+	}
+	
+	public static void signUp()
+	{
+		System.out.println("SignUp");
+		System.out.println("```````");
+		LeaveManagementSystemMain.employeeName();
+		LeaveManagementSystemMain.employeeID();
+		LeaveManagementSystemMain.contactNumber();
+		LeaveManagementSystemMain.emailId();
+	}
+	
+	public static void emailId()
+	{
+		System.out.print("Enter your EmailId: ");
+		gmail = scan.next();
+		Pattern ps = Pattern.compile("[a-z0-9_/-/.]+[@][a-z]+[/.][a-z]{2,3}");
+		Matcher ms1 = ps.matcher(gmail);
+		if(ms1.find())
+		{
+			LeaveManagementSystemMain.createPassword();
+		}
+		else
+		{
+			System.out.println("Error!!!");
+			System.out.println("Enter valid gmailID:" );
+			System.out.println("{No upper case allowed.\nEg, rakshana_2.3@gmail.com}");
+			LeaveManagementSystemMain.emailId();
+			
+		}
+	}
+	public static String createPassword()
+	{
+		System.out.print("Create PassWord: ");
+		passWordC = scan.next();
+		Pattern ps = Pattern.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{5,}$");
+		Matcher m1 = ps.matcher(passWordC);
+		if(m1.find())
+		{
+			System.out.print("ReEnter password: ");
+			rePassword = scan.next();
+			Pattern rePass = Pattern.compile(passWordC);
+			Matcher rem1 = rePass.matcher(rePassword);
+			if(rem1.find())
+			{
+				System.out.println("Successfully SignedUP!!!");
+				LeaveManagementSystemMain.login();
+
+			}
 			else
 			{
-				System.out.println("Worng Password");
-				System.out.println("Password should contain\n1.Minimum 5 characters in length.\n2.Contain Uppercase letter\n3.Lowercase letter\n3.One Special charecter\n4.Numbers");
-				System.out.println("Eg, Kim@002, kIm#765, kiM%2313");
-				LeaveManagementSystemMain.login();
+				System.out.println("Your PassWord and RePassWord is not matching.");
+				LeaveManagementSystemMain.createPassword();
 			}
+		}
+		else
+		{
+			System.out.println("Password should contain\n1.Minimum 5 characters in length.\n2.Contain Uppercase letter\n3.Lowercase letter\n3.One Special charecter\n4.Numbers");
+			System.out.println("Eg, Kim@002, kIm#765, kiM%2313");
+			LeaveManagementSystemMain.createPassword();
+		}
+		
+		return rePassword;
+	}
+	public static int login()
+	{
+		System.out.println("\nLogin");
+		System.out.println("``````");
+		System.out.print("Enter your employee ID: ");
+		idCheck = scan.next();
+		String empID = Integer.toString(stringToInt);
+		Pattern p = Pattern.compile(empID);
+		Matcher m = p.matcher(idCheck);
+		if(m.find())
+		{
+			LeaveManagementSystemMain.password();
 		}
 		
 		else
 		{
-			System.out.println("Login Failed!!!\nEmployee ID should contain only 5 numbers!!!");
-			System.out.println("Eg, 3556, 3557, 3558\n");
+			System.out.println("Login Failed!!! Enter correct employeeID.");
 			LeaveManagementSystemMain.login();
 			
 		}
-		
+		stringToInt = Integer.parseInt(id);
+		return stringToInt;
 	}
 	
-	
+	public static void password()
+	{
+		System.out.print("PassWord: ");
+		passWord = scan.next();
+		String rePassword1 = rePassword;
+		Pattern ps = Pattern.compile(rePassword1);
+		Matcher m1 = ps.matcher(passWord);
+		if(m1.find())
+		{
+			System.out.println("Correct Password.\nLogin Successful!!!\n");
+		}
+		
+		else
+		{
+			System.out.println("Worng Password!!! Enter correct password.");				
+			LeaveManagementSystemMain.password();
+		}
+	}
 	
 	public static void personalDetails()
 	{
 		System.out.println("Application forms");
 		System.out.println("``````````````````");;
-		System.out.println("1.Fill Personal Details.\n2.Apply for Leave.");
-		System.out.print("Fill every page by entering(1/2): ");
+		System.out.println("1.Apply for Leave");
+		System.out.print("\nEnter 1 to apply for leave: ");
 		pdNumber = scan.nextInt();
-		switch(pdNumber)
+		if(pdNumber == 1)
 		{
-			case 1:
-				LeaveManagementSystemMain.employeeName();
-				LeaveManagementSystemMain.employeeID();
-				LeaveManagementSystemMain.contactNumber();
-				System.out.println("\n");
-				LeaveManagementSystemMain.personalDetails();
-				break;
-			case 2:
-				LeaveManagementSystemMain.reasonOfLeave();
-				
+			LeaveManagementSystemMain.reasonOfLeave();
 		}
 	}
 	
 	public static String employeeName() 
 	{
-		System.out.println("\nPersonal Details:");
+		System.out.println("Personal Details:");
 		System.out.println("`````````````````");
 		System.out.print("Enter your Name: ");
 		employeeName = scan.next();
@@ -105,29 +184,6 @@ public class LeaveManagementSystemMain
 		}
 		return null;
 	}
-	
-	public static int employeeID()
-	{
-		System.out.print("Enter Your EmployeeID: ");
-		id = scan.next();
-		Pattern p = Pattern.compile("^\\d{4}$");
-		Matcher m = p.matcher(id);
-		if(m.find())
-		{
-			stringToInt = Integer.parseInt(id);
-			return stringToInt;
-		}
-		else
-		{
-			System.out.println("Employee ID should contain only 5 numbers!!!");
-			System.out.println("Eg, 3556, 3557, 3558");
-			LeaveManagementSystemMain.employeeID();
-			
-		}
-		return stringToInt;
-	}
-	
-	
 	
 	public static long contactNumber()
 	{
@@ -270,14 +326,17 @@ public class LeaveManagementSystemMain
 					break;
 				case 3:
 					System.out.println("You exceded more than 2 days in this month for emergency leave");
+					LeaveManagementSystemMain.totalSalary();
 					System.out.println("Payoff for "+numberOfDaysE+" days: "+(perDaySalary*numberOfDaysE));
 					break;
 				case 4:
 					System.out.println("You exceded more than 2 days in this month for emergency leave");
+					LeaveManagementSystemMain.totalSalary();
 					System.out.println("Payoff for "+numberOfDaysE+" days: "+(perDaySalary*numberOfDaysE));
 					break;
 				case 5:
 					System.out.println("You exceded more than 2 days in this month for emergency leave");
+					LeaveManagementSystemMain.totalSalary();
 					System.out.println("Payoff for "+numberOfDaysE+" days: "+(perDaySalary*numberOfDaysE));
 					break;
 			}
@@ -292,7 +351,7 @@ public class LeaveManagementSystemMain
 		{
 			if(numberOfDays < 10)
 			{
-				System.out.println("Payoff for "+numberOfDays+" detected: "+(perDaySalary*numberOfDays));
+				System.out.println("No Payoff");
 			}
 			else if (numberOfDays > 10)
 			{
@@ -325,7 +384,7 @@ public class LeaveManagementSystemMain
 		LeaveManagementSystemClass leaveManagementSystem = new LeaveManagementSystemClass();
 		System.out.println("                Leave Application Form");
 		System.out.println("                ======================\n");
-		LeaveManagementSystemMain.login();
+		LeaveManagementSystemMain.signUp();
 		LeaveManagementSystemMain.personalDetails();
 		leaveManagementSystem.setEmployeeName(employeeName);
 		leaveManagementSystem.setEmployeeID(stringToInt);
@@ -333,7 +392,6 @@ public class LeaveManagementSystemMain
 		leaveManagementSystem.setDateOfLeave(LeaveManagementSystemMain.dateOfLeave());
 		leaveManagementSystem.setReasonOfLeave(leaveReason);
 		leaveManagementSystem.setNumberOfDays(LeaveManagementSystemMain.numberOfDays());
-		LeaveManagementSystemMain.totalSalary();
 		leaveManagementSystem.setDepartment(LeaveManagementSystemMain.department());
 		System.out.println("\nEmployeeName: "+leaveManagementSystem.getEmployeeName());
 		System.out.println("EmployeeID: "+(leaveManagementSystem.getEmployeeID()));
