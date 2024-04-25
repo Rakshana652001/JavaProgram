@@ -391,6 +391,7 @@ public class LeaveManagementSystemMain
 		leaveManagementSystem.setContactNumber(phoneNumber);
 		leaveManagementSystem.setDateOfLeave(LeaveManagementSystemMain.dateOfLeave());
 		leaveManagementSystem.setReasonOfLeave(leaveReason);
+		
 		leaveManagementSystem.setNumberOfDays(LeaveManagementSystemMain.numberOfDays());
 		leaveManagementSystem.setDepartment(LeaveManagementSystemMain.department());
 		System.out.println("\nEmployeeName: "+leaveManagementSystem.getEmployeeName());
