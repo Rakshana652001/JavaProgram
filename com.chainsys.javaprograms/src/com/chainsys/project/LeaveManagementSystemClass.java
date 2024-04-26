@@ -1,8 +1,10 @@
 package com.chainsys.project;
 
-public class LeaveManagementSystemClass {
+
+public class LeaveManagementSystemClass 
+{
 	int employeeID;
-	String dateOfLeave;
+	String dateOfLeave; 
 	String reasonOfLeave;
 	int numberOfDays;
 	String employeeName;
@@ -63,5 +65,6 @@ public class LeaveManagementSystemClass {
 				+ employeeName + ", contactNumber=" + contactNumber + ", emergencyContact=" + emergencyContact
 				+ ", department=" + department + "]";
 	}
+	
 	
 }
