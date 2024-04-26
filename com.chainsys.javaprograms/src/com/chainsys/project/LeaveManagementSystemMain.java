@@ -10,20 +10,17 @@ import java.util.Date;
 public class LeaveManagementSystemMain 
 {
 	static Scanner scan = new Scanner(System.in);
-	static int numberOfDays, numberOfDaysE, months, number, stringToInt, 
+	static int numberOfDays, numberofDaysEmergency, months, number, stringToInt, 
 					dayss=5, enterDepartment, pdNumber;
 	static String id, idCheck, passWord, passWordC, rePassword, leaveDate, 
 	format,	leaveReason, employeeName, lastName,devoloper, admin, security, 
-	accounts, marketing, gmail, concat, phoneNumber, emergencyContact;
+	accounts, marketing, gmail, concat, phoneNumber, emergencyContact, salary;
 	static Date dateOfLeave;
-	static long salary, perDaySalary;
+	static long  perDaySalary;
 	static long stringToint1, stringToint2;
 	
 	public static void apply()
 	{
-		System.out.println("Application form");
-		System.out.println("`````````````````");
-		System.out.println("SignUP      Login");
 		System.out.println("Enter(1/2): ");
 		String number = scan.next();
 		Pattern p = Pattern.compile("\\d");
@@ -335,14 +332,14 @@ public class LeaveManagementSystemMain
 			if(number == 1)
 			{
 				System.out.print("\nEnter day(1/2/3/4/5): ");
-				numberOfDaysE = scan.nextInt();
-				String numbertoString1 = Integer.toString(numberOfDaysE);
+				String number = scan.next();
 				Pattern p1 = Pattern.compile("^[1-5]$");
-				Matcher m1 = p1.matcher(numbertoString1);
+				Matcher m1 = p1.matcher(number);
+				numberofDaysEmergency = Integer.parseInt(number);
 				if(m1.find())
 				{
 					Pattern p11 = Pattern.compile("^[3-5]$");
-					Matcher m11 = p11.matcher(numbertoString1);
+					Matcher m11 = p11.matcher(number);
 					if(m11.find())
 					{
 						LeaveManagementSystemMain.totalSalary();
@@ -352,12 +349,23 @@ public class LeaveManagementSystemMain
 				{
 					LeaveManagementSystemMain.numberOfDays();
 				}
-				return numberOfDaysE;
+				return numberofDaysEmergency;
 			}
 			else if(number == 2)
 			{
 				System.out.print("\nEnter number of days: ");
-				numberOfDays = scan.nextInt();
+				String numberOfDay = scan.next();
+				Pattern p1 =Pattern.compile("\\d");
+				Matcher m1 = p1.matcher(numberOfDay);
+				if(m1.find())
+				{
+					numberOfDays = Integer.parseInt(numberOfDay);
+					return numberOfDays;
+				}
+				else
+				{
+					LeaveManagementSystemMain.reasonOfLeave();
+				}
 				return numberOfDays;
 			}
 			else if(number == 3)
@@ -378,7 +386,7 @@ public class LeaveManagementSystemMain
 	{
 		if(leaveReason == "Permission")
 		{
-			switch(numberOfDaysE)
+			switch(numberofDaysEmergency)
 			{
 				case 1:
 					System.out.println("no payOff");
@@ -389,21 +397,21 @@ public class LeaveManagementSystemMain
 				case 3:
 					LeaveManagementSystemMain.endDateE();
 					System.out.println("You exceded more than 2 days in this month for getting Permission");
-					System.out.println("Payoff for "+numberOfDaysE+" days: "+(perDaySalary*numberOfDaysE));
+					System.out.println("Payoff for "+numberofDaysEmergency+" days: "+(perDaySalary*numberofDaysEmergency));
 					break;
 				case 4:
 					LeaveManagementSystemMain.endDateE();
 					System.out.println("You exceded more than 2 days in this month for getting Permission");
-					System.out.println("Payoff for "+numberOfDaysE+" days: "+(perDaySalary*numberOfDaysE));
+					System.out.println("Payoff for "+numberofDaysEmergency+" days: "+(perDaySalary*numberofDaysEmergency));
 					break;
 				case 5:
 					LeaveManagementSystemMain.endDateE();
 					System.out.println("You exceded more than 2 days in this month for getting Permission");
-					System.out.println("Payoff for "+numberOfDaysE+" days: "+(perDaySalary*numberOfDaysE));
+					System.out.println("Payoff for "+numberofDaysEmergency+" days: "+(perDaySalary*numberofDaysEmergency));
 					break;
 			}
 			
-			dayss = dayss-numberOfDaysE;
+			dayss = dayss-numberofDaysEmergency;
 			System.out.println("Remaining days for getting Permission in this month: "+dayss);
 			return dayss;
 		}
@@ -412,7 +420,7 @@ public class LeaveManagementSystemMain
 		if(leaveReason == "SickLeave")
 		{
 			String numbertoString1 = Integer.toString(numberOfDays);
-			Pattern p1 = Pattern.compile("^[1-10]$");
+			Pattern p1 = Pattern.compile("\\b([1-9]|10)\\b");
 			Matcher m1 = p1.matcher(numbertoString1);
 			if(m1.find())
 			{
@@ -452,13 +460,13 @@ public class LeaveManagementSystemMain
 		System.out.println("```````````");
 		System.out.print("1.Devoloper\n2.Accounts\n3.Admin\n4.Security\n5.Marketing");
 		System.out.println("\nEnter your Department in number(1,2...): ");
-		enterDepartment = scan.nextInt();
-		String numbertoString1 = Integer.toString(enterDepartment);
+		String enterDepartment =scan.next();
 		Pattern p1 = Pattern.compile("^[1-5]$");
-		Matcher m1 = p1.matcher(numbertoString1);
+		Matcher m1 = p1.matcher(enterDepartment);
 		if(m1.find())
 		{
-			switch(enterDepartment)
+			int department = Integer.parseInt(enterDepartment);
+			switch(department)
 			{
 				case 1:
 					devoloper = "Devoloper";
@@ -490,8 +498,19 @@ public class LeaveManagementSystemMain
 	public static long totalSalary()
 	{
 		System.out.println("Enter total salary: ");
-		salary = scan.nextLong();
-		perDaySalary = (salary/30);
+		salary = scan.next();
+		Pattern p = Pattern.compile("^\\d+([kw])?\\+?$");
+		Matcher m = p.matcher(salary);
+		if(m.find())
+		{
+			long salaryLong = Long.parseLong(salary);
+			perDaySalary = (salaryLong/30);
+		}
+		else
+		{
+			System.out.println("Salary want to be in numbers");
+			LeaveManagementSystemMain.totalSalary();
+		}
 		return perDaySalary;
 	}
 	
@@ -515,7 +534,7 @@ public class LeaveManagementSystemMain
 	public static void endDateE()
 	{
 		LocalDate today = LocalDate.now();
-		LocalDate tomorrow = today.plusDays(numberOfDaysE);
+		LocalDate tomorrow = today.plusDays(numberofDaysEmergency);
 		System.out.println("Leave End Date: "+tomorrow);
 	}
 
@@ -526,11 +545,13 @@ public class LeaveManagementSystemMain
 		System.out.println("Leave End Date: "+sameDayNextMonth);
 	}
 	
+	
 	public static void main(String[] args) 
 	{
 		LeaveManagementSystemClass leaveManagementSystem = new LeaveManagementSystemClass();
-		System.out.println("              Leave Application Form");
-		System.out.println("              ======================\n");
+		System.out.println("Leave Application Form");
+		System.out.println("=======================");
+		System.out.println("SignUP(1)      Login(2)\n");
 		LeaveManagementSystemMain.apply();
 		leaveManagementSystem.setEmployeeName(concat);
 		leaveManagementSystem.setEmployeeID(stringToInt);
