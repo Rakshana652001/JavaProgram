@@ -39,6 +39,7 @@ public class LeaveManagementSystemMain
 				case 2:
 					LeaveManagementSystemMain.login();
 					break;
+			
 				default:
 					LeaveManagementSystemMain.apply();
 			}
