@@ -21,7 +21,9 @@ public class LeaveManagementSystemMain
 	
 	public static void apply()
 	{
-		System.out.println("1.SignUP\n2.Login");
+		System.out.println("Application form");
+		System.out.println("`````````````````");
+		System.out.println("SignUP      Login");
 		System.out.println("Enter(1/2): ");
 		String number = scan.next();
 		Pattern p = Pattern.compile("\\d");
@@ -267,6 +269,7 @@ public class LeaveManagementSystemMain
 		if(m1.find())
 		{
 			System.out.println("Correct Password.\nLogin Successful!!!\n");
+			LeaveManagementSystemMain.reasonOfLeave();
 		}
 		
 		else
@@ -276,26 +279,6 @@ public class LeaveManagementSystemMain
 		}
 	}
 	
-	
-	public static void personalDetails()
-	{
-		System.out.println("Application form");
-		System.out.println("`````````````````");;
-		System.out.println("1.Apply for Leave");
-		System.out.print("\nEnter 1 to apply for leave: ");
-		String pdNum = scan.next();
-		Pattern p = Pattern.compile("\\d{1}");
-		Matcher m = p.matcher(pdNum);
-		if(m.find())
-		{
-			LeaveManagementSystemMain.reasonOfLeave();
-		}
-		else
-		{
-			System.out.println("Enter 1.");
-			LeaveManagementSystemMain.personalDetails();
-		}
-	}
 	
 	
 	public static String reasonOfLeave()
@@ -547,7 +530,6 @@ public class LeaveManagementSystemMain
 		System.out.println("              Leave Application Form");
 		System.out.println("              ======================\n");
 		LeaveManagementSystemMain.apply();
-		LeaveManagementSystemMain.personalDetails();
 		leaveManagementSystem.setEmployeeName(concat);
 		leaveManagementSystem.setEmployeeID(stringToInt);
 		leaveManagementSystem.setContactNumber(stringToint1);
