@@ -10,7 +10,7 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	LeaveManagementSystemClass objectForPojo = new LeaveManagementSystemClass(); //for get set
 	Scanner scan = new Scanner(System.in);
 	static int numberOfDays, numberofDaysEmergency, months, number, stringToInt, 
-	dayss=5, enterDepartment, pdNumber;
+	dayss=5, enterDepartment, pdNumber, number1ToString;
 	static String id, idCheck, passWord, passWordC, rePassword, leaveDate, 
 	format,	leaveReason, employeeName, lastName,devoloper, admin, security, 
 	accounts, marketing, gmail, concat, phoneNumber, emergencyContact, salary;
@@ -333,15 +333,11 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	public int numberOfDays()
 	{
 		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
-		String numberToString = Integer.toString(number);
-		Pattern p = Pattern.compile("^[1-3]$");
-		Matcher m = p.matcher(numberToString);
-		if(m.find())
-		{
-			if(number == 1)
+		if(number == 1)
 			{
 				System.out.print("\nEnter day(1/2/3/4/5): ");
 				String number1 = scan.next();
+				number1ToString = Integer.parseInt(number1);
 				Pattern p1 = Pattern.compile("^[1-5]$");
 				Matcher m1 = p1.matcher(number1);
 				if(m1.find())
@@ -350,6 +346,7 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 					Matcher m11 = p11.matcher(number1);
 					if(m11.find())
 					{
+						
 						objectForimplementation.totalSalary();
 					}
 				}
@@ -358,7 +355,7 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 					System.out.println("Enter (1-5) and only integer!!!");
 					objectForimplementation.numberOfDays();
 				}
-				return number;
+				return number1ToString;
 			}
 			else if(number == 2)
 			{
@@ -385,7 +382,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 			{
 				System.out.println("Invalid Reason!!!");
 			}
-		}
 		
 		return 0;
 	}
@@ -395,12 +391,14 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 		if(leaveReason == "Permission")
 		{
-			switch(numberofDaysEmergency)
+			switch(number1ToString)
 			{
 				case 1:
+					objectForimplementation.endDateE();
 					System.out.println("no payOff");
 					break;
 				case 2:
+					objectForimplementation.endDateE();
 					System.out.println("no payOff");
 					break;
 				case 3:
@@ -420,7 +418,7 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 					break;
 			}
 			
-			dayss = dayss-numberofDaysEmergency;
+			dayss = dayss-number1ToString;
 			System.out.println("Remaining days for getting Permission in this month: "+dayss);
 			return dayss;
 		}
@@ -434,6 +432,7 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 			Matcher m1 = p1.matcher(numbertoString1);
 			if(m1.find())
 			{
+				objectForimplementation.endDate();
 				System.out.println("No Payoff");
 			}
 			else
@@ -541,7 +540,7 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	public void endDateE() 
 	{
 		LocalDate today = LocalDate.now();
-		LocalDate tomorrow = today.plusDays(numberofDaysEmergency);
+		LocalDate tomorrow = today.plusDays(number1ToString);
 		System.out.println("Leave End Date: "+tomorrow);
 		
 	}
@@ -560,13 +559,13 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		objectForimplementation.apply();
 		objectForPojo.setEmployeeName(concat);
 		objectForPojo.setEmployeeID(stringToInt);
-		objectForPojo.setContactNumber(number);
+		objectForPojo.setContactNumber(stringToint1);
 		objectForPojo.setEmergencyContact(stringToint2);
 		objectForPojo.setDateOfLeave(objectForimplementation.dateOfLeave());
 		objectForPojo.setReasonOfLeave(leaveReason);
 		objectForPojo.setNumberOfDays(objectForimplementation.numberOfDays());
 		objectForPojo.setDepartment(objectForimplementation.department());
-		System.out.println("\nEmployeeName: "+(objectForPojo.getEmployeeName()));
+		System.out.println("\nEmployeeName: "+objectForPojo.getEmployeeName());
 		System.out.println("EmployeeID: "+(objectForPojo.getEmployeeID()));
 		System.out.println("Contact Number: "+(objectForPojo.getContactNumber()));
 		System.out.println("Emergency Contact: "+(objectForPojo.getEmergencyContact()));
@@ -574,6 +573,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		System.out.println("Applied on: "+(objectForPojo.getDateOfLeave()));
 		System.out.println("Leave Reason: "+(objectForPojo.getReasonOfLeave()));
 		System.out.println("Number of days leave: "+(objectForPojo.getNumberOfDays()));	
-		objectForimplementation.payOff();
+		objectForimplementation.payOff();		
 	}
 }
