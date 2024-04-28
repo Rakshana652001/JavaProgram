@@ -1,13 +1,10 @@
 package com.chainsys.project;
-
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-
 public class LeaveManagementSystemImplementation implements LeaveManagementSystemInterface
 {
 	LeaveManagementSystemClass objectForPojo = new LeaveManagementSystemClass(); //for get set
@@ -20,13 +17,11 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	static Date dateOfLeave;
 	static long  perDaySalary;
 	static long stringToint1, stringToint2;
+	
 	@Override
-	
-	
 	public void apply() 
 	{
 		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
-
 		System.out.println("Enter(1/2): ");
 		String number = scan.next();
 		Pattern p = Pattern.compile("\\d");
@@ -52,7 +47,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 			System.out.println("Enter 1 or 2\n");
 			objectForimplementation.apply();
 		}
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
@@ -65,14 +59,12 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		objectForimplementation.employeeID();
 		objectForimplementation.contactNumber();
 		objectForimplementation.emergencyNumber();
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public String employeeName() 
 	{
 		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
-
 		System.out.println("Personal Details:");
 		System.out.println("`````````````````");
 		System.out.print("Enter your First Name: ");
@@ -103,14 +95,12 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 			objectForimplementation.employeeName();
 		}
 		return concat;
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public int employeeID() 
 	{
-		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
-
+			LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 			System.out.print("Enter Your EmployeeID: ");
 			id = scan.next();
 			Pattern p = Pattern.compile("^\\d{4}$");
@@ -135,7 +125,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	public long contactNumber() 
 	{
 		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
-
 		System.out.print("Enter your phone number: ");
 		phoneNumber = scan.next();
 		Pattern p = Pattern.compile("^\\d{10}$");
@@ -157,7 +146,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	public long emergencyNumber() 
 	{
 		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
-
 		System.out.print("Emergency contact: ");
 		emergencyContact = scan.next();
 		Pattern p =Pattern.compile("^\\d{10}$");
@@ -179,7 +167,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	public void notSameNumber() 
 	{
 		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
-
 		String emergencyNumber = emergencyContact;
 		String contactNumber = phoneNumber;
 		Pattern p = Pattern.compile(emergencyNumber);
@@ -199,7 +186,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	public void emailId() 
 	{
 		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
-
 		System.out.print("Enter your EmailId: ");
 		gmail = scan.next();
 		Pattern ps = Pattern.compile("[a-z0-9_/-/.]+[@][a-z]+[/.][a-z]{2,3}$");
@@ -216,14 +202,13 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 			objectForimplementation.emailId();
 			
 		}
-		// TODO Auto-generated method stub
+
 		
 	}
 	@Override
 	public String createPassword() 
 	{
 		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
-
 		System.out.print("Create PassWord: ");
 		passWordC = scan.next();
 		Pattern ps = Pattern.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{5,}$");
@@ -285,7 +270,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	public void password()
 	{
 		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
-
 		System.out.print("PassWord: ");
 		passWord = scan.next();
 		String rePassword1 = rePassword;
@@ -308,7 +292,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	public String reasonOfLeave() 
 	{
 		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
-
 		System.out.println("\nEnter your Reason");
 		System.out.println("``````````````````");
 		System.out.println("1.Permission\n2.Sick Leave\n3.Maternity Leave");
@@ -350,7 +333,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	public int numberOfDays()
 	{
 		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
-
 		String numberToString = Integer.toString(number);
 		Pattern p = Pattern.compile("^[1-3]$");
 		Matcher m = p.matcher(numberToString);
@@ -359,14 +341,13 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 			if(number == 1)
 			{
 				System.out.print("\nEnter day(1/2/3/4/5): ");
-				String number = scan.next();
+				String number1 = scan.next();
 				Pattern p1 = Pattern.compile("^[1-5]$");
-				Matcher m1 = p1.matcher(number);
-				numberofDaysEmergency = Integer.parseInt(number);
+				Matcher m1 = p1.matcher(number1);
 				if(m1.find())
 				{
 					Pattern p11 = Pattern.compile("^[3-5]$");
-					Matcher m11 = p11.matcher(number);
+					Matcher m11 = p11.matcher(number1);
 					if(m11.find())
 					{
 						objectForimplementation.totalSalary();
@@ -374,9 +355,10 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 				}
 				else
 				{
+					System.out.println("Enter (1-5) and only integer!!!");
 					objectForimplementation.numberOfDays();
 				}
-				return numberofDaysEmergency;
+				return number;
 			}
 			else if(number == 2)
 			{
@@ -411,7 +393,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	public long payOff() 
 	{
 		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
-
 		if(leaveReason == "Permission")
 		{
 			switch(numberofDaysEmergency)
@@ -484,7 +465,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	public String department() 
 	{
 		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
-
 		System.out.println("\nDepartments");
 		System.out.println("```````````");
 		System.out.print("1.Devoloper\n2.Accounts\n3.Admin\n4.Security\n5.Marketing");
@@ -525,7 +505,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	public long totalSalary() 
 	{
 		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
-
 		System.out.println("Enter total salary: ");
 		salary = scan.next();
 		Pattern p = Pattern.compile("^\\d+([kw])?\\+?$");
@@ -578,7 +557,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	public void implementation() 
 	{
 		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
-
 		objectForimplementation.apply();
 		objectForPojo.setEmployeeName(concat);
 		objectForPojo.setEmployeeID(stringToInt);
@@ -596,8 +574,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		System.out.println("Applied on: "+(objectForPojo.getDateOfLeave()));
 		System.out.println("Leave Reason: "+(objectForPojo.getReasonOfLeave()));
 		System.out.println("Number of days leave: "+(objectForPojo.getNumberOfDays()));	
-		objectForimplementation.payOff();	
-		
+		objectForimplementation.payOff();
 	}
-
 }
