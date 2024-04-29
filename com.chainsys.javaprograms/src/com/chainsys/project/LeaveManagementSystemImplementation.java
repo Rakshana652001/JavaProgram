@@ -1,10 +1,12 @@
 package com.chainsys.project;
 import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 public class LeaveManagementSystemImplementation implements LeaveManagementSystemInterface
 {
 	LeaveManagementSystemClass objectForPojo = new LeaveManagementSystemClass(); //for get set
@@ -14,38 +16,26 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	static String id, idCheck, passWord, passWordC, rePassword, leaveDate, 
 	format,	leaveReason, employeeName, lastName,devoloper, admin, security, 
 	accounts, marketing, gmail, concat, phoneNumber, emergencyContact, salary;
-	static Date dateOfLeave;
-	static long  perDaySalary;
-	static long stringToint1, stringToint2;
-	
+	static Date dateOfLeave; static long  perDaySalary;	static long stringToint1, stringToint2;
+	static LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
+
 	@Override
 	public void apply() 
 	{
-		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 		System.out.println("Enter(1/2): ");
 		String number = scan.next();
-		Pattern p = Pattern.compile("\\d");
-		Matcher m = p.matcher(number);
-		if(m.find())
+		LeaveManagementSystemValidation.numberValidation(number);
+		int stringTonumber = Integer.parseInt(number);
+		switch(stringTonumber)
 		{
-			int stringTonumber = Integer.parseInt(number);
-			switch(stringTonumber)
-			{
-				case 1:
-					objectForimplementation.signUp();
-					break;
-				case 2:
-					objectForimplementation.login();
-					break;
-			
-				default:
-					objectForimplementation.apply();
-			}
-		}
-		else
-		{
-			System.out.println("Enter 1 or 2\n");
-			objectForimplementation.apply();
+			case 1:
+				objectForimplementation.signUp();
+				break;
+			case 2:
+				objectForimplementation.login();
+				break;
+			default:
+				objectForimplementation.apply();
 		}
 		
 	}
@@ -54,7 +44,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	{
 		System.out.println("SignUp");
 		System.out.println("```````");
-		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 		objectForimplementation.employeeName();
 		objectForimplementation.employeeID();
 		objectForimplementation.contactNumber();
@@ -64,67 +53,31 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	@Override
 	public String employeeName() 
 	{
-		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 		System.out.println("Personal Details:");
 		System.out.println("`````````````````");
 		System.out.print("Enter your First Name: ");
 		employeeName = scan.next();
-		Pattern p = Pattern.compile("^[a-zA-Z]*$");
-		Matcher m = p.matcher(employeeName);
-		if(m.find())
-		{
-			System.out.print("Enter your Last Name: ");
-			lastName = scan.next();
-			Pattern p1 = Pattern.compile("^[\sa-zA-Z]*$");
-			Matcher m11 = p1.matcher(lastName);
-			if(m11.find())
-			{
-				concat = employeeName.concat(lastName);
-			}
-			else
-			{
-				System.out.println("\nLast Name should contain only alphabets like Initials or names.");
-				System.out.println("Eg: S, T, N");
-				objectForimplementation.employeeName();
-			}
-		}
-		else
-		{
-			System.out.println("\nName should contain only alphabets.");
-			System.out.println("Eg: Sam,Steve,Tony,Natasha.");
-			objectForimplementation.employeeName();
-		}
+		LeaveManagementSystemValidation.firstNameValidation(employeeName);
+		System.out.print("Enter your Last Name: ");
+		lastName = scan.next();
+		LeaveManagementSystemValidation.lastNameValidation(lastName);
+		concat = employeeName.concat(lastName);
 		return concat;
 		
 	}
 	@Override
 	public int employeeID() 
 	{
-			LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 			System.out.print("Enter Your EmployeeID: ");
 			id = scan.next();
-			Pattern p = Pattern.compile("^\\d{4}$");
-			Matcher m = p.matcher(id);
-			if(m.find())
-			{
-				stringToInt = Integer.parseInt(id);
-				return stringToInt;
-			}
-			else
-			{
-				System.out.println("\nIncorrect Id");
-				System.out.println("Employee ID should contain 4integers.\nEg: 3556, 3557, 3558..");
-				objectForimplementation.employeeID();
-				
-			}
-			
+			LeaveManagementSystemValidation.employeeIdValidation(id);
+			stringToInt = Integer.parseInt(id);
 			return stringToInt;
 	}
 	
 	@Override
 	public long contactNumber() 
 	{
-		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 		System.out.print("Enter your phone number: ");
 		phoneNumber = scan.next();
 		Pattern p = Pattern.compile("^\\d{10}$");
@@ -145,7 +98,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	@Override
 	public long emergencyNumber() 
 	{
-		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 		System.out.print("Emergency contact: ");
 		emergencyContact = scan.next();
 		Pattern p =Pattern.compile("^\\d{10}$");
@@ -166,7 +118,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	@Override
 	public void notSameNumber() 
 	{
-		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 		String emergencyNumber = emergencyContact;
 		String contactNumber = phoneNumber;
 		Pattern p = Pattern.compile(emergencyNumber);
@@ -185,7 +136,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	@Override
 	public void emailId() 
 	{
-		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 		System.out.print("Enter your EmailId: ");
 		gmail = scan.next();
 		Pattern ps = Pattern.compile("[a-z0-9_/-/.]+[@][a-z]+[/.][a-z]{2,3}$");
@@ -208,7 +158,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	@Override
 	public String createPassword() 
 	{
-		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 		System.out.print("Create PassWord: ");
 		passWordC = scan.next();
 		Pattern ps = Pattern.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{5,}$");
@@ -244,8 +193,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	@Override
 	public int login() 
 	{
-		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
-
 		System.out.println("\nLogin");
 		System.out.println("``````");
 		System.out.print("Enter your employee ID: ");
@@ -269,7 +216,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	@Override
 	public void password()
 	{
-		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 		System.out.print("PassWord: ");
 		passWord = scan.next();
 		String rePassword1 = rePassword;
@@ -291,7 +237,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	@Override
 	public String reasonOfLeave() 
 	{
-		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 		System.out.println("\nEnter your Reason");
 		System.out.println("``````````````````");
 		System.out.println("1.Permission\n2.Sick Leave\n3.Maternity Leave");
@@ -332,7 +277,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	@Override
 	public int numberOfDays()
 	{
-		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 		if(number == 1)
 			{
 				System.out.print("\nEnter day(1/2/3/4/5): ");
@@ -388,7 +332,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	@Override
 	public long payOff() 
 	{
-		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 		if(leaveReason == "Permission")
 		{
 			switch(number1ToString)
@@ -463,7 +406,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	@Override
 	public String department() 
 	{
-		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 		System.out.println("\nDepartments");
 		System.out.println("```````````");
 		System.out.print("1.Devoloper\n2.Accounts\n3.Admin\n4.Security\n5.Marketing");
@@ -503,7 +445,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	@Override
 	public long totalSalary() 
 	{
-		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 		System.out.println("Enter total salary: ");
 		salary = scan.next();
 		Pattern p = Pattern.compile("^\\d+([kw])?\\+?$");
@@ -555,7 +496,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	@Override
 	public void implementation() 
 	{
-		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 		objectForimplementation.apply();
 		objectForPojo.setEmployeeName(concat);
 		objectForPojo.setEmployeeID(stringToInt);
