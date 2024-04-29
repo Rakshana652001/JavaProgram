@@ -41,6 +41,7 @@ public class CollectionPractice
 			//v.removeElementAt(1);
 			v.remove(1);
 			v.setSize(initial);
+			v.clone();
 		}
 		System.out.println(v);
 		
