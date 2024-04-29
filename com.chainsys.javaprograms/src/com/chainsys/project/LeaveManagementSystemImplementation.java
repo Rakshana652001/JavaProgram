@@ -23,9 +23,9 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	public void apply() 
 	{
 		System.out.println("Enter(1/2): ");
-		String number = scan.next();
-		LeaveManagementSystemValidation.numberValidation(number);
-		int stringTonumber = Integer.parseInt(number);
+		String number1 = scan.next();
+		LeaveManagementSystemValidation.numberValidation(number1);
+		int stringTonumber = Integer.parseInt(number1);
 		switch(stringTonumber)
 		{
 			case 1:
@@ -80,8 +80,8 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	{
 		System.out.print("Enter your phone number: ");
 		phoneNumber = scan.next();
-		stringToint1 = Long.parseLong(phoneNumber);
 		LeaveManagementSystemValidation.contactNumberValidation(phoneNumber);
+		stringToint1 = Long.parseLong(phoneNumber);
 		return stringToint1;
 	}
 	@Override
@@ -182,6 +182,7 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		}
 		
 		else
+			
 		{
 			System.out.println("\nWorng Password!!! Enter correct password.");				
 			objectForimplementation.password();

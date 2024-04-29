@@ -6,20 +6,20 @@ import java.util.regex.Pattern;
 public class LeaveManagementSystemValidation 
 {
 	static LeaveManagementSystemImplementation objectForimplementations = new LeaveManagementSystemImplementation();
-	public static String numberValidation(String number)
+	public static String numberValidation(String number1)
 	{
 		Pattern p = Pattern.compile("\\d");
-		Matcher m = p.matcher(number);
+		Matcher m = p.matcher(number1);
 		if(m.find())
 		{
-			return number;
+			return number1;
 		}
 		else
 		{
 			System.out.println("Enter 1 or 2\n");
 			objectForimplementations.apply();
 		}
-		return number;
+		return number1;
 	}
 
 	public static String firstNameValidation(String employeeName)
