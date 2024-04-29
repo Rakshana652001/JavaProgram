@@ -80,19 +80,8 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	{
 		System.out.print("Enter your phone number: ");
 		phoneNumber = scan.next();
-		Pattern p = Pattern.compile("^\\d{10}$");
-		Matcher m = p.matcher(phoneNumber);
-		if(m.find())
-		{
-			stringToint1 = Long.parseLong(phoneNumber);
-			return stringToint1;
-		}
-		else
-		{
-			System.out.println("\nPhone number should contain only 10 integers!!!");
-			objectForimplementation.contactNumber();
-		}
-		
+		stringToint1 = Long.parseLong(phoneNumber);
+		LeaveManagementSystemValidation.contactNumberValidation(phoneNumber);
 		return stringToint1;
 	}
 	@Override
@@ -100,60 +89,25 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	{
 		System.out.print("Emergency contact: ");
 		emergencyContact = scan.next();
-		Pattern p =Pattern.compile("^\\d{10}$");
-		Matcher m = p.matcher(emergencyContact);
-		if(m.find())
-		{
-			objectForimplementation.notSameNumber();
-			stringToint2 = Long.parseLong(emergencyContact);
-			return stringToint2;
-		}
-		else
-		{
-			System.out.println("\nPhone number should contain only 10 integers!!!");
-			objectForimplementation.emergencyNumber();
-		}
+		LeaveManagementSystemValidation.emergencyNumberValidation(emergencyContact);
+		objectForimplementation.notSameNumber();
+		stringToint2 = Long.parseLong(emergencyContact);
 		return stringToint2;
 	}
 	@Override
 	public void notSameNumber() 
 	{
+		@SuppressWarnings("unused")
 		String emergencyNumber = emergencyContact;
 		String contactNumber = phoneNumber;
-		Pattern p = Pattern.compile(emergencyNumber);
-		Matcher m = p.matcher(contactNumber);
-		if(m.find())
-		{
-			System.out.println("Contact Number and Emergency number should not be same.");
-			objectForimplementation.emergencyNumber();
-		}
-		else
-		{
-			objectForimplementation.emailId();
-		}
-		
+		LeaveManagementSystemValidation.notSameValidation(contactNumber,emergencyContact);
 	}
 	@Override
 	public void emailId() 
 	{
 		System.out.print("Enter your EmailId: ");
 		gmail = scan.next();
-		Pattern ps = Pattern.compile("[a-z0-9_/-/.]+[@][a-z]+[/.][a-z]{2,3}$");
-		Matcher ms1 = ps.matcher(gmail);
-		if(ms1.find())
-		{
-			objectForimplementation.createPassword();
-		}
-		else
-		{
-			System.out.println("\nError!!!");
-			System.out.println("Enter valid gmailID:" );
-			System.out.println("{No upper case allowed.\nEg: rakshana_2.3@gmail.com}");
-			objectForimplementation.emailId();
-			
-		}
-
-		
+		LeaveManagementSystemValidation.emailVadidation(gmail);
 	}
 	@Override
 	public String createPassword() 
@@ -242,36 +196,27 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		System.out.println("1.Permission\n2.Sick Leave\n3.Maternity Leave");
 		System.out.print("\nEnter(1/2/3): ");
 		String num = scan.next();
-		Pattern p = Pattern.compile("^[1-3]$");
-		Matcher m = p.matcher(num);
-		if(m.find())
+		LeaveManagementSystemValidation.reasonValidation(num);
+		number = Integer.parseInt(num);
+		switch (number)
 		{
-			number = Integer.parseInt(num);
-			switch (number)
-			{
 			case 1:
-					System.out.println("\nPermission");
-					leaveReason = "Permission";
-					System.out.println("Total 5 days, 2days withoutPayoff and 3days withPayoff");
-					return leaveReason;
+				System.out.println("\nPermission");
+				leaveReason = "Permission";
+				System.out.println("Total 5 days, 2days withoutPayoff and 3days withPayoff");
+				return leaveReason;
 			case 2:
-					
-					System.out.println("\nSick Leave");
-					leaveReason = "SickLeave";
-					System.out.println("Allowed only for 10days.");
-					return leaveReason;
+				
+				System.out.println("\nSick Leave");
+				leaveReason = "SickLeave";
+				System.out.println("Allowed only for 10days.");
+				return leaveReason;
 			case 3:
-					System.out.println("\nMaternity Period");
-					leaveReason = "Maternity Period";
-					System.out.println("Allowed only for 6months with work from home");
-					return leaveReason;
-			}
+				System.out.println("\nMaternity Period");
+				leaveReason = "Maternity Period";
+				System.out.println("Allowed only for 6months with work from home");
+				return leaveReason;
 		}
-		else
-		{
-			objectForimplementation.reasonOfLeave();
-		}
-		
 		return leaveReason;
 	}
 	@Override
@@ -347,17 +292,17 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 				case 3:
 					objectForimplementation.endDateE();
 					System.out.println("You exceded more than 2 days in this month for getting Permission");
-					System.out.println("Payoff for "+numberofDaysEmergency+" days: "+(perDaySalary*numberofDaysEmergency));
+					System.out.println("Payoff for "+number1ToString+" days: "+(perDaySalary*number1ToString));
 					break;
 				case 4:
 					objectForimplementation.endDateE();
 					System.out.println("You exceded more than 2 days in this month for getting Permission");
-					System.out.println("Payoff for "+numberofDaysEmergency+" days: "+(perDaySalary*numberofDaysEmergency));
+					System.out.println("Payoff for "+number1ToString+" days: "+(perDaySalary*number1ToString));
 					break;
 				case 5:
 					objectForimplementation.endDateE();
 					System.out.println("You exceded more than 2 days in this month for getting Permission");
-					System.out.println("Payoff for "+numberofDaysEmergency+" days: "+(perDaySalary*numberofDaysEmergency));
+					System.out.println("Payoff for "+number1ToString+" days: "+(perDaySalary*number1ToString));
 					break;
 			}
 			
@@ -447,18 +392,9 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	{
 		System.out.println("Enter total salary: ");
 		salary = scan.next();
-		Pattern p = Pattern.compile("^\\d+([kw])?\\+?$");
-		Matcher m = p.matcher(salary);
-		if(m.find())
-		{
-			long salaryLong = Long.parseLong(salary);
-			perDaySalary = (salaryLong/30);
-		}
-		else
-		{
-			System.out.println("Salary want to be in numbers");
-			objectForimplementation.totalSalary();
-		}
+		LeaveManagementSystemValidation.salaryValidation(salary);
+		long salaryLong = Long.parseLong(salary);
+		perDaySalary = (salaryLong/30);
 		return perDaySalary;
 	}
 	@Override

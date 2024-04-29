@@ -71,4 +71,100 @@ public class LeaveManagementSystemValidation
 		}
 		return id;
 	}
+	
+	public static String contactNumberValidation(String phoneNumber)
+	{
+		Pattern p = Pattern.compile("^\\d{10}$");
+		Matcher m = p.matcher(phoneNumber);
+		if(m.find())
+		{
+			return phoneNumber;			
+		}
+		else
+		{
+			System.out.println("\nPhone number should contain only 10 integers!!!");
+			objectForimplementations.contactNumber();
+		}
+		return phoneNumber;
+	}
+	
+	public static String emergencyNumberValidation(String emergencyContact)
+	{
+		Pattern p =Pattern.compile("^\\d{10}$");
+		Matcher m = p.matcher(emergencyContact);
+		if(m.find())
+		{
+			return emergencyContact;
+		}
+		else
+		{
+			System.out.println("\nPhone number should contain only 10 integers!!!");
+			objectForimplementations.emergencyNumber();
+		}
+		return emergencyContact;
+	}
+	
+	public static void notSameValidation(String emergencyNumber, String contactNumber)
+	{
+		Pattern p = Pattern.compile(emergencyNumber);
+		Matcher m = p.matcher(contactNumber);
+		if(m.find())
+		{
+			System.out.println("Contact Number and Emergency number should not be same.");
+			objectForimplementations.emergencyNumber();
+		}
+		else
+		{
+			objectForimplementations.emailId();
+		}
+	}
+	
+	public static void emailVadidation(String gmail)
+	{
+		Pattern ps = Pattern.compile("[a-z0-9_/-/.]+[@][a-z]+[/.][a-z]{2,3}$");
+		Matcher ms1 = ps.matcher(gmail);
+		if(ms1.find())
+		{
+			objectForimplementations.createPassword();
+		}
+		else
+		{
+			System.out.println("\nError!!!");
+			System.out.println("Enter valid gmailID:" );
+			System.out.println("{No upper case allowed.\nEg: rakshana_2.3@gmail.com}");
+			objectForimplementations.emailId();
+			
+		}
+	}
+	
+	public static String reasonValidation(String num)
+	{
+		Pattern p = Pattern.compile("^[1-3]$");
+		Matcher m = p.matcher(num);
+		if(m.find())
+		{
+			return num;
+		}
+		else
+		{
+			objectForimplementations.reasonOfLeave();
+		}
+		return num;
+	}
+	
+	public static String salaryValidation(String salary)
+	{
+		Pattern p = Pattern.compile("^\\d+([kw])?\\+?$");
+		Matcher m = p.matcher(salary);
+		if(m.find())
+		{
+			return salary;
+		}
+		else
+		{
+			System.out.println("Salary want to be in numbers");
+			objectForimplementations.totalSalary();
+		}
+		return salary;
+	}
 }
