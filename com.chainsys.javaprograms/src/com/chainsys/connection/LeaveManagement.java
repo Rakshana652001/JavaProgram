@@ -61,10 +61,14 @@ public class LeaveManagement {
 	{
 		Connection getconnection = JdbcConnection.getConnection();
 		System.out.println(getconnection);
-		String selectFrom = "Select * from leaveManagement";
+		String selectFrom = "Select employeeID from leaveManagement where employeeName='Stark'";
 		PreparedStatement prepareStatement = getconnection.prepareStatement(selectFrom);
 		ResultSet save3 = prepareStatement.executeQuery();
-		System.out.println(save3);
+		while(save3.next())
+		{
+			System.out.println(save3.getInt(1));
+		}
+		
 		
 		
 	}
