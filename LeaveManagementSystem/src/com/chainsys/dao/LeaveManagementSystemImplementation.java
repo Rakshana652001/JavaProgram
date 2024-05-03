@@ -3,7 +3,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.SimpleDateFormat;
 
 import java.time.LocalDate;
@@ -62,14 +61,14 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	
 	public void impl() throws ClassNotFoundException, SQLException
 	{
-		ArrayList existingList = new ArrayList();
+		ArrayList<String> existingList = new ArrayList<String>();
 		Connection getConnection = JdbcConnection.getConnection();
 		System.out.println("Table Connected.    "+getConnection);
 		String selectEmployeeName = "select employeeName from leaveManagement";
 		PreparedStatement prepareStatement = getConnection.prepareStatement(selectEmployeeName);
-		System.out.println("Enter(1.Register\n2.Update\n3.Delete\n4.Retrive\n5.Login): ");
+		System.out.print("Enter(1.Register\n2.Update\n3.Delete\n4.Retrive): ");
 		String enter = scan.next();
-		Pattern p = Pattern.compile("^[1-5]*$");
+		Pattern p = Pattern.compile("^[1-5]$");
 		Matcher m = p.matcher(enter);
 		while(m.find())
 		{
@@ -85,24 +84,12 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 					}
 					if(existingList.contains(objectForPojo.getEmployeeName()))
 					{
-						 System.out.println("User already exist");
+						 System.out.println("User already Registered.");
 					}
 					else
 					{
 						System.out.println("Registration Successfull..");
-						String insertStatement = "insert into leaveManagement(employeeID, employeeName, contactNumber, emergencyContact, department, dateOfLeave, reasonOfLeave, numberOfDays)values(?,?,?,?,?,?,?,?)";
-						PreparedStatement prepareStatement1 = getConnection.prepareStatement(insertStatement);
-						
-						prepareStatement1.setInt(1, objectForPojo.getEmployeeID());
-						prepareStatement1.setString(2, objectForPojo.getEmployeeName());
-						prepareStatement1.setLong(3, objectForPojo.getContactNumber());
-						prepareStatement1.setLong(4, objectForPojo.getEmergencyContact());
-						prepareStatement1.setString(5, objectForPojo.getDepartment());
-						prepareStatement1.setString(6, objectForPojo.getDateOfLeave());
-						prepareStatement1.setString(7, objectForPojo.getReasonOfLeave());
-						prepareStatement1.setInt(8, objectForPojo.getNumberOfDays());
-						
-						int rows = prepareStatement1.executeUpdate();
+						objectForimplementation.forRegister();
 					}
 					break;
 				case 2:
@@ -128,14 +115,38 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 						System.out.println("\n\nRetrived Data\nEmployeeID: "+resultSet1.getString(1)+"\nContactNumber: "+resultSet1.getString(2));
 					}
 					//retrive 
+//				case 5:
+//					java.sql.Statement retriveStatement1 = getConnection.createStatement();
+//					String retrive1 = "select employeID from leaveManagement ";
+//					objectForimplementation.login();
 					
 			}
 		}
 	}
-	@Override
-	public void apply() 
+	
+	public void forRegister() throws ClassNotFoundException, SQLException
 	{
-		System.out.println("Enter(1/2): ");
+		Connection getConnection = JdbcConnection.getConnection();
+		System.out.println("Table Connected.    "+getConnection);
+		String insertStatement = "insert into leaveManagement(employeeID, employeeName, contactNumber, emergencyContact, department, dateOfLeave, reasonOfLeave, numberOfDays)values(?,?,?,?,?,?,?,?)";
+		PreparedStatement prepareStatement1 = getConnection.prepareStatement(insertStatement);
+		
+		prepareStatement1.setInt(1, objectForPojo.getEmployeeID());
+		prepareStatement1.setString(2, objectForPojo.getEmployeeName());
+		prepareStatement1.setLong(3, objectForPojo.getContactNumber());
+		prepareStatement1.setLong(4, objectForPojo.getEmergencyContact());
+		prepareStatement1.setString(5, objectForPojo.getDepartment());
+		prepareStatement1.setString(6, objectForPojo.getDateOfLeave());
+		prepareStatement1.setString(7, objectForPojo.getReasonOfLeave());
+		prepareStatement1.setInt(8, objectForPojo.getNumberOfDays());
+		
+		@SuppressWarnings("unused")
+		int rows = prepareStatement1.executeUpdate();
+	}
+	@Override
+	public void apply()
+	{
+		System.out.print("Enter(1/2): ");
 		String number1 = scan.next();
 		LeaveManagementSystemValidation.numberValidation(number1);
 		int stringTonumber = Integer.parseInt(number1);
@@ -145,7 +156,7 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 				objectForimplementation.signUp();
 				break;
 			case 2:
-				objectForimplementation.login2();
+				objectForimplementation.login();
 				break;
 			default:
 				objectForimplementation.apply();
@@ -279,18 +290,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		}
 		stringToInt = Integer.parseInt(id);
 		return stringToInt;
-	}
-	
-	@Override
-	public String login2() 
-	{
-		String employeeID1 = id;
-		String password = passWordC;
-		System.out.println("\nLogin");
-		System.out.println("``````");
-		System.out.print("Enter your employee ID: ");
-		String idCheck1 = scan.next();
-		return employeeID1;
 	}
 	
 	
@@ -482,7 +481,7 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		System.out.println("\nDepartments");
 		System.out.println("```````````");
 		System.out.print("1.Devoloper\n2.Accounts\n3.Admin\n4.Security\n5.Marketing");
-		System.out.println("\nEnter your Department in number(1,2...): ");
+		System.out.print("\nEnter your Department in number(1,2...): ");
 		String enterDepartment =scan.next();
 		Pattern p1 = Pattern.compile("^[1-5]$");
 		Matcher m1 = p1.matcher(enterDepartment);
@@ -518,7 +517,7 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	@Override
 	public long totalSalary() 
 	{
-		System.out.println("Enter total salary: ");
+		System.out.print("Enter total salary: ");
 		salary = scan.next();
 		LeaveManagementSystemValidation.salaryValidation(salary);
 		long salaryLong = Long.parseLong(salary);

@@ -17,7 +17,6 @@ public interface LeaveManagementSystemInterface
 	public void emailId();
 	public String createPassword();
 	public int login();
-	public String login2();
 	public void password();
 	public String reasonOfLeave();
 	public int numberOfDays();
