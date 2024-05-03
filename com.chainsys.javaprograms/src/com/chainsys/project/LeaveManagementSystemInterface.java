@@ -1,9 +1,11 @@
 package com.chainsys.project;
 
+import java.sql.SQLException;
+
 public interface LeaveManagementSystemInterface 
 {
 	//all methods call
-	public void implementation();
+	public boolean implementation() throws ClassNotFoundException, SQLException;
 	public void apply();
 	public void signUp();
 	public String employeeName();

@@ -10,13 +10,13 @@ public class JdbcConnection
 	{
 		Connection getConnection = getConnection();
 		System.out.println(getConnection);
+		
 	}
 
-	static Connection getConnection() throws SQLException, ClassNotFoundException 
+	public static Connection getConnection() throws SQLException, ClassNotFoundException 
 	{
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/LeaveManagement", "root", "Rakshana@1947");
 		return connection;
 	}
-
 }

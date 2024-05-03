@@ -6,6 +6,8 @@ public interface LeaveManagementSystemInterface
 {
 	//all methods call
 	public boolean implementation() throws ClassNotFoundException, SQLException;
+	
+	public void delete() throws ClassNotFoundException, SQLException;
 	public void apply();
 	public void signUp();
 	public String employeeName();

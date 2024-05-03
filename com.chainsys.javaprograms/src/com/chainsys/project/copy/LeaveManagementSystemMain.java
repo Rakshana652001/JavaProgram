@@ -2,6 +2,8 @@ package com.chainsys.project.copy;
 
 import java.sql.SQLException;
 
+import com.chainsys.project.LeaveManagementSystemImplementation;
+
 public class LeaveManagementSystemMain
 {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException 

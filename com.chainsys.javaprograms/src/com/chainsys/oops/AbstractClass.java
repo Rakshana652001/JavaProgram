@@ -9,7 +9,6 @@ public abstract class AbstractClass
 	public void educationLoan()
 	{
 		ABCBank bankDetails = new ABCBank();
-		TestABCBank forEduLoan = new TestABCBank();
 		System.out.println("\nEnter your details to get Educational loan");
 		bankDetails.setUserName(TestABCBank.validationForName());
 		bankDetails.setPhoneNumber(TestABCBank.validationForPhoneNumber());

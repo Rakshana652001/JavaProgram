@@ -1,11 +1,18 @@
 package com.chainsys.project;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.chainsys.connection.JdbcConnection;
 
 public class LeaveManagementSystemImplementation implements LeaveManagementSystemInterface
 {
@@ -431,8 +438,15 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		
 	}
 	@Override
-	public void implementation() 
+	public boolean implementation() throws ClassNotFoundException, SQLException 
 	{
+		ArrayList existingList = new ArrayList();
+		Connection getConnection = JdbcConnection.getConnection();
+		System.out.println("Table Connected.    "+getConnection);
+		
+		String selectEmployeeName = "select employeeName from leaveManagement";
+		PreparedStatement prepareStatement = getConnection.prepareStatement(selectEmployeeName);
+		
 		objectForimplementation.apply();
 		objectForPojo.setEmployeeName(concat);
 		objectForPojo.setEmployeeID(stringToInt);
@@ -450,6 +464,40 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		System.out.println("Applied on: "+(objectForPojo.getDateOfLeave()));
 		System.out.println("Leave Reason: "+(objectForPojo.getReasonOfLeave()));
 		System.out.println("Number of days leave: "+(objectForPojo.getNumberOfDays()));	
-		objectForimplementation.payOff();		
+		objectForimplementation.payOff();	
+		
+		
+		
+
+		ResultSet resultSet = prepareStatement.executeQuery();
+		while(resultSet.next())
+		{
+			int id = resultSet.getInt(stringToInt);
+            existingList.add(id);
+		}
+		if(existingList.contains(objectForPojo.getEmployeeName()))
+		{
+			 System.out.println("name already exist");
+	         return true;
+		}
+		else
+		{
+			System.out.println("Name available for Registration");
+			String insertStatement = "insert into leaveManagement(employeeID, employeeName, contactNumber, emergencyContact, department, dateOfLeave, reasonOfLeave, numberOfDays)values(?,?,?,?,?,?,?,?)";
+			PreparedStatement prepareStatement1 = getConnection.prepareStatement(insertStatement);
+			
+			prepareStatement1.setInt(1, objectForPojo.getEmployeeID());
+			prepareStatement1.setString(2, objectForPojo.getEmployeeName());
+			prepareStatement1.setLong(3, objectForPojo.getContactNumber());
+			prepareStatement1.setLong(4, objectForPojo.getEmergencyContact());
+			prepareStatement1.setString(5, objectForPojo.getDepartment());
+			prepareStatement1.setString(6, objectForPojo.getDateOfLeave());
+			prepareStatement1.setString(7, objectForPojo.getReasonOfLeave());
+			prepareStatement1.setInt(8, objectForPojo.getNumberOfDays());
+			
+			int rows = prepareStatement1.executeUpdate();
+			
+			return false;
+		}
 	}
 }

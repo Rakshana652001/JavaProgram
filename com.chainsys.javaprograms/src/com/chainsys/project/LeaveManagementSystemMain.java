@@ -1,8 +1,10 @@
 package com.chainsys.project;
 
+import java.sql.SQLException;
+
 public class LeaveManagementSystemMain
 {
-	public static void main(String[] args) 
+	public static void main(String[] args) throws ClassNotFoundException, SQLException 
 	{
 		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 		System.out.println("Leave Application Form");

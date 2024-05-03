@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 public class HospitalImplementation implements HospitalInterface
 {
 	Scanner scan = new Scanner(System.in);
+	HospitalImplementation objectForimplementation = new HospitalImplementation();
 	Hospital hospitalDetails = new Hospital();
 	public void hospitalName()
 	{
@@ -16,6 +17,7 @@ public class HospitalImplementation implements HospitalInterface
 		Matcher m = p.matcher(name);
 		if(m.find())
 		{
+			objectForimplementation.hospitalName();
 			hospitalDetails.setNameofhospital(name);
 			System.out.println("Hospital Name: "+hospitalDetails.getNameofhospital());
 		}

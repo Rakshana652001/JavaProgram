@@ -20,7 +20,7 @@ public class SBIBank extends AbstractClass
 		    				case 1:
 		    					long monthlyPay = bankDetails.setMonthlyPay(35000);
 		    					int time = bankDetails.setTime(30);
-		    					long intrest = bankDetails.setIntrest(800000);
+		    					@SuppressWarnings("unused") long intrest = bankDetails.setIntrest(800000);
 		    					long loanAmount = bankDetails.setLoanAmount(2000000);
 		    					System.out.println("For 20,00,000 Monthly pay: "+bankDetails.getMonthlyPay());
 		    					System.out.println("Time period: "+bankDetails.getTime());

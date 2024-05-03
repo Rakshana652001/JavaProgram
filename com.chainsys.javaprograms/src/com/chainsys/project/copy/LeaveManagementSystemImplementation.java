@@ -14,6 +14,10 @@ import java.util.regex.Pattern;
 
 import com.chainsys.connection.JdbcConnection;
 
+
+import com.chainsys.project.LeaveManagementSystemClass;
+import com.mysql.cj.xdevapi.Statement;
+
 public class LeaveManagementSystemImplementation implements LeaveManagementSystemInterface
 {
 	LeaveManagementSystemClass objectForPojo = new LeaveManagementSystemClass(); //for get set
@@ -22,7 +26,7 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	dayss=5, enterDepartment, pdNumber, number1ToString;
 	static String id, idCheck, passWord, passWordC, rePassword, leaveDate, 
 	format,	leaveReason, employeeName, lastName,devoloper, admin, security, 
-	accounts, marketing, gmail, concat, phoneNumber, emergencyContact, salary;
+	accounts, marketing, gmail, concat, phoneNumber, emergencyContact, salary, dateString;
 	static Date dateOfLeave; static long  perDaySalary;	static long stringToint1, stringToint2;
 	static LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 
@@ -410,7 +414,7 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	{
 		dateOfLeave = new Date();  
 		SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
-		String dateString = formatDate.format(dateOfLeave);
+		dateString = formatDate.format(dateOfLeave);
 		return dateString;
 	}
 	@Override
@@ -437,14 +441,18 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		System.out.println("Leave End Date: "+sameDayNextMonth);
 		
 	}
-	@Override
+	
 	public boolean implementation() throws ClassNotFoundException, SQLException
 	{	
+		ArrayList existingList = new ArrayList();
 		Connection getConnection = JdbcConnection.getConnection();
 		System.out.println("Table Connected.    "+getConnection);
 		
+		String selectEmployeeName = "select employeeName from leaveManagement";
+		PreparedStatement prepareStatement = getConnection.prepareStatement(selectEmployeeName);
 		
-		objectForimplementation.apply();
+		
+		objectForimplementation.apply();		
 		objectForPojo.setEmployeeName(concat);
 		objectForPojo.setEmployeeID(stringToInt);
 		objectForPojo.setContactNumber(stringToint1);
@@ -453,36 +461,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		objectForPojo.setReasonOfLeave(leaveReason);
 		objectForPojo.setNumberOfDays(objectForimplementation.numberOfDays());
 		objectForPojo.setDepartment(objectForimplementation.department());
-		
-		
-		ArrayList existingList = new ArrayList();
-		String insertEmployeeName = "insert into leaveManagement(employeeID, employeeName, contactNumber, emergencyContact, department, dateOfLeave, reasonOfLeave, numberOfDays)values(?,?,?,?,?,?,?,?)";
-		PreparedStatement prepareStatement = getConnection.prepareStatement(insertEmployeeName);
-		ResultSet resultSet = prepareStatement.executeQuery();
-		while(resultSet.next())
-		{
-			prepareStatement.setInt(1, objectForPojo.getEmployeeID());
-			prepareStatement.setString(2, objectForPojo.getEmployeeName());
-			prepareStatement.setLong(3, objectForPojo.getContactNumber());
-			prepareStatement.setLong(4, objectForPojo.getEmergencyContact());
-			prepareStatement.setString(5, objectForPojo.getDepartment());
-			prepareStatement.setString(6, objectForPojo.getDateOfLeave());
-			prepareStatement.setString(7, objectForPojo.getReasonOfLeave());
-			prepareStatement.setInt(8, objectForPojo.getNumberOfDays());
-			
-			existingList.add(prepareStatement);
-		}
-		if(existingList.contains(objectForPojo.getEmployeeName()))
-		{
-			 System.out.println("name already exist");
-	            return true;
-		}
-		else
-		{
-			System.out.println("Name available for Registration");
-		}
-            
-		
 		
 		System.out.println("\nEmployeeName: "+objectForPojo.getEmployeeName());
 		System.out.println("EmployeeID: "+objectForPojo.getEmployeeID());
@@ -494,10 +472,70 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		System.out.println("Number of days leave: "+objectForPojo.getNumberOfDays());
 		objectForimplementation.payOff();
 		
-		int rows = prepareStatement.executeUpdate();
-		System.out.println("EmployeName Inserted: "+rows);
-		return true ;
+		
+		
+		
+		
+		ResultSet resultSet = prepareStatement.executeQuery();
+		while(resultSet.next())
+		{
+			int id = resultSet.getInt(stringToInt);
+            existingList.add(id);
+		}
+		if(existingList.contains(objectForPojo.getEmployeeName()))
+		{
+			 System.out.println("name already exist");
+	         return true;
+		}
+		else
+		{
+			System.out.println("Name available for Registration");
+			String insertStatement = "insert into leaveManagement(employeeID, employeeName, contactNumber, emergencyContact, department, dateOfLeave, reasonOfLeave, numberOfDays)values(?,?,?,?,?,?,?,?)";
+			PreparedStatement prepareStatement1 = getConnection.prepareStatement(insertStatement);
 			
+			prepareStatement1.setInt(1, objectForPojo.getEmployeeID());
+			prepareStatement1.setString(2, objectForPojo.getEmployeeName());
+			prepareStatement1.setLong(3, objectForPojo.getContactNumber());
+			prepareStatement1.setLong(4, objectForPojo.getEmergencyContact());
+			prepareStatement1.setString(5, objectForPojo.getDepartment());
+			prepareStatement1.setString(6, objectForPojo.getDateOfLeave());
+			prepareStatement1.setString(7, objectForPojo.getReasonOfLeave());
+			prepareStatement1.setInt(8, objectForPojo.getNumberOfDays());
+			
+			int rows = prepareStatement1.executeUpdate();
+			
+			return false;
+		}
+
+		
+		
+		
+		//objectForimplementation.delete();
+				
 	}
 	
+	@Override
+	
+	
 }
+
+
+
+
+
+//System.out.println("Name available for Registration");
+//String insertStatement = "insert into leaveManagement(employeeID, employeeName, contactNumber, emergencyContact, department, dateOfLeave, reasonOfLeave, numberOfDays)values(?,?,?,?,?,?,?,?)";
+//PreparedStatement prepareStatement1 = getConnection.prepareStatement(insertStatement);
+//
+//prepareStatement1.setInt(1, objectForPojo.getEmployeeID());
+//prepareStatement1.setString(2, objectForPojo.getEmployeeName());
+//prepareStatement1.setLong(3, objectForPojo.getContactNumber());
+//prepareStatement1.setLong(4, objectForPojo.getEmergencyContact());
+//prepareStatement1.setString(5, objectForPojo.getDepartment());
+//prepareStatement1.setString(6, objectForPojo.getDateOfLeave());
+//prepareStatement1.setString(7, objectForPojo.getReasonOfLeave());
+//prepareStatement1.setInt(8, objectForPojo.getNumberOfDays());
+//
+//int rows = prepareStatement1.executeUpdate();
+//
+//return false;
