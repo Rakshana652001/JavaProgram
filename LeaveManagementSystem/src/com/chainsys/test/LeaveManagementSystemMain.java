@@ -1,4 +1,4 @@
-package com.chainsys.main;
+package com.chainsys.test;
 
 import java.sql.SQLException;
 
