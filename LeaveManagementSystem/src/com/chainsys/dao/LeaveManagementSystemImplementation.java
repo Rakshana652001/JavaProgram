@@ -33,13 +33,9 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	@Override
 	public boolean implementation() throws ClassNotFoundException, SQLException 
 	{
-		ArrayList existingList = new ArrayList();
+		
 		Connection getConnection = JdbcConnection.getConnection();
 		System.out.println("Table Connected.    "+getConnection);
-		String selectEmployeeName = "select employeeName from leaveManagement";
-		PreparedStatement prepareStatement = getConnection.prepareStatement(selectEmployeeName);
-		
-		
 		
 		objectForimplementation.apply();
 		objectForPojo.setEmployeeName(concat);
@@ -58,70 +54,84 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		System.out.println("Applied on: "+(objectForPojo.getDateOfLeave()));
 		System.out.println("Leave Reason: "+(objectForPojo.getReasonOfLeave()));
 		System.out.println("Number of days leave: "+(objectForPojo.getNumberOfDays()));	
-		objectForimplementation.payOff();	
-		
-		
-//		java.sql.Statement statement = getConnection.createStatement();
-//		String delete = "delete from leaveManagement where employeeID=2222";
-//		statement.executeUpdate(delete);
-//		System.out.println("Deleted successfully.");
-//		return false;
-		
-		
-//		java.sql.Statement statement = getConnection.createStatement();
-//		String update = "update leaveManagement set employeeID = 1, employeeName ='Raks' where employeeID = 3333";
-//		statement.executeUpdate(update);
-//		System.out.println("Updated Successfully.");
-//		return false; //update 
-		
-		
-		
-		java.sql.Statement statement = getConnection.createStatement();
-		String retrive = "select employeeID, contactNumber from leaveManagement where employeeID = 2332";
-		ResultSet resultSet = statement.executeQuery(retrive);
-		while(resultSet.next())
-		{
-			System.out.println("\n\nRetrived Data\nEmployeeID: "+resultSet.getString(1)+"\nContactNumber: "+resultSet.getString(2));
-		}
-		return false; //retrive 
-		
-		
-
-//		ResultSet resultSet = prepareStatement.executeQuery(); //registration
-//		while(resultSet.next())
-//		{
-//			String name = resultSet.getString(1);
-//            existingList.add(name);
-//		}
-//		if(existingList.contains(objectForPojo.getEmployeeName()))
-//		{
-//			 System.out.println("User already exist");
-//	         return true;
-//		}
-//		else
-//		{
-//			System.out.println("Registration Successfull..");
-//			String insertStatement = "insert into leaveManagement(employeeID, employeeName, contactNumber, emergencyContact, department, dateOfLeave, reasonOfLeave, numberOfDays)values(?,?,?,?,?,?,?,?)";
-//			PreparedStatement prepareStatement1 = getConnection.prepareStatement(insertStatement);
-//			
-//			prepareStatement1.setInt(1, objectForPojo.getEmployeeID());
-//			prepareStatement1.setString(2, objectForPojo.getEmployeeName());
-//			prepareStatement1.setLong(3, objectForPojo.getContactNumber());
-//			prepareStatement1.setLong(4, objectForPojo.getEmergencyContact());
-//			prepareStatement1.setString(5, objectForPojo.getDepartment());
-//			prepareStatement1.setString(6, objectForPojo.getDateOfLeave());
-//			prepareStatement1.setString(7, objectForPojo.getReasonOfLeave());
-//			prepareStatement1.setInt(8, objectForPojo.getNumberOfDays());
-//			
-//			int rows = prepareStatement1.executeUpdate();
-//			
-//			return false;
-//		}
-//		
-		
+		objectForimplementation.payOff();
+		return false;	
+				
 	}
 	
 	
+	public void impl() throws ClassNotFoundException, SQLException
+	{
+		ArrayList existingList = new ArrayList();
+		Connection getConnection = JdbcConnection.getConnection();
+		System.out.println("Table Connected.    "+getConnection);
+		String selectEmployeeName = "select employeeName from leaveManagement";
+		PreparedStatement prepareStatement = getConnection.prepareStatement(selectEmployeeName);
+		System.out.println("Enter(1.Register\n2.Update\n3.Delete\n4.Retrive\n5.Login): ");
+		String enter = scan.next();
+		Pattern p = Pattern.compile("^[1-5]*$");
+		Matcher m = p.matcher(enter);
+		while(m.find())
+		{
+			int enterto = Integer.parseInt(enter);
+			switch(enterto)
+			{
+				case 1:
+					ResultSet resultSet = prepareStatement.executeQuery(); //registration
+					while(resultSet.next())
+					{
+						String name = resultSet.getString(1);
+			            existingList.add(name);
+					}
+					if(existingList.contains(objectForPojo.getEmployeeName()))
+					{
+						 System.out.println("User already exist");
+					}
+					else
+					{
+						System.out.println("Registration Successfull..");
+						String insertStatement = "insert into leaveManagement(employeeID, employeeName, contactNumber, emergencyContact, department, dateOfLeave, reasonOfLeave, numberOfDays)values(?,?,?,?,?,?,?,?)";
+						PreparedStatement prepareStatement1 = getConnection.prepareStatement(insertStatement);
+						
+						prepareStatement1.setInt(1, objectForPojo.getEmployeeID());
+						prepareStatement1.setString(2, objectForPojo.getEmployeeName());
+						prepareStatement1.setLong(3, objectForPojo.getContactNumber());
+						prepareStatement1.setLong(4, objectForPojo.getEmergencyContact());
+						prepareStatement1.setString(5, objectForPojo.getDepartment());
+						prepareStatement1.setString(6, objectForPojo.getDateOfLeave());
+						prepareStatement1.setString(7, objectForPojo.getReasonOfLeave());
+						prepareStatement1.setInt(8, objectForPojo.getNumberOfDays());
+						
+						int rows = prepareStatement1.executeUpdate();
+					}
+					break;
+				case 2:
+					java.sql.Statement updateStatement = getConnection.createStatement();
+					String update = "update leaveManagement set employeeID = 1, employeeName ='Raks' where employeeID = 3333";
+					updateStatement.executeUpdate(update);
+					System.out.println("Updated Successfully.");
+					break;
+					 //update 
+				case 3:
+					java.sql.Statement deleteStatement = getConnection.createStatement();
+					String delete = "delete from leaveManagement where sNo=2";
+					deleteStatement.executeUpdate(delete);
+					System.out.println("Deleted successfully.");
+					break;
+					//delete
+				case 4:
+					java.sql.Statement retriveStatement = getConnection.createStatement();
+					String retrive = "select employeeID, contactNumber from leaveManagement where sNo = 1";
+					ResultSet resultSet1 = retriveStatement.executeQuery(retrive);
+					while(resultSet1.next())
+					{
+						System.out.println("\n\nRetrived Data\nEmployeeID: "+resultSet1.getString(1)+"\nContactNumber: "+resultSet1.getString(2));
+					}
+					//retrive 
+					
+			}
+		}
+	}
 	@Override
 	public void apply() 
 	{
@@ -135,7 +145,7 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 				objectForimplementation.signUp();
 				break;
 			case 2:
-				objectForimplementation.login();
+				objectForimplementation.login2();
 				break;
 			default:
 				objectForimplementation.apply();
@@ -270,6 +280,20 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		stringToInt = Integer.parseInt(id);
 		return stringToInt;
 	}
+	
+	@Override
+	public String login2() 
+	{
+		String employeeID1 = id;
+		String password = passWordC;
+		System.out.println("\nLogin");
+		System.out.println("``````");
+		System.out.print("Enter your employee ID: ");
+		String idCheck1 = scan.next();
+		return employeeID1;
+	}
+	
+	
 	@Override
 	public void password()
 	{
@@ -533,5 +557,4 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		System.out.println("Leave End Date: "+sameDayNextMonth);
 		
 	}
-	
 }

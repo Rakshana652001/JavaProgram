@@ -13,6 +13,7 @@ public class LeaveManagementSystemMain
 		System.out.println("=======================");
 		System.out.println("SignUP(1)      Login(2)\n");
 		objectForimplementation.implementation();
+		objectForimplementation.impl();
 	}
 }
 
