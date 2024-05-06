@@ -16,6 +16,9 @@ import java.util.regex.Pattern;
 import com.chainsys.model.LeaveManagementSystemClass;
 import com.chainsys.util.JdbcConnection;
 
+
+
+
 public class LeaveManagementSystemImplementation implements LeaveManagementSystemInterface
 {
 	LeaveManagementSystemClass objectForPojo = new LeaveManagementSystemClass(); //for get set
@@ -29,8 +32,7 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	static LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 
 	
-	@Override
-	public boolean implementation() throws ClassNotFoundException, SQLException 
+	public boolean getterSetter() throws ClassNotFoundException, SQLException 
 	{
 		
 		Connection getConnection = JdbcConnection.getConnection();
@@ -59,16 +61,44 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	}
 	
 	
-	public void impl() throws ClassNotFoundException, SQLException
+	@SuppressWarnings("unlikely-arg-type")
+	public void implementation() throws ClassNotFoundException, SQLException
 	{
 		ArrayList<String> existingList = new ArrayList<String>();
 		Connection getConnection = JdbcConnection.getConnection();
-		System.out.println("Table Connected.    "+getConnection);
+		//System.out.println("Table Connected.    \n"+getConnection);
 		String selectEmployeeName = "select employeeName from leaveManagement";
 		PreparedStatement prepareStatement = getConnection.prepareStatement(selectEmployeeName);
-		System.out.print("Enter(1.Register\n2.Update\n3.Delete\n4.Retrive): ");
+		
+		ResultSet resultSet = prepareStatement.executeQuery(); //registration
+		while(resultSet.next())
+		{
+			String name  = resultSet.getString(1);
+            existingList.add(name);
+		}
+		if(existingList.contains(objectForPojo.getEmployeeName()))
+		{
+			 System.out.println("User already Registered.");
+		}
+		else
+		{
+			System.out.println("Registration Successfull..");
+			String insertStatement = "insert into leaveManagement(employeeID, employeeName, contactNumber, emergencyContact, department)values(?,?,?,?,?)";
+			PreparedStatement prepareStatement1 = getConnection.prepareStatement(insertStatement);
+			
+			prepareStatement1.setInt(1, objectForPojo.getEmployeeID());
+			prepareStatement1.setString(2, objectForPojo.getEmployeeName());
+			prepareStatement1.setLong(3, objectForPojo.getContactNumber());
+			prepareStatement1.setLong(4, objectForPojo.getEmergencyContact());
+			prepareStatement1.setString(5, objectForPojo.getDepartment());
+			
+			@SuppressWarnings("unused")
+			int rows = prepareStatement1.executeUpdate();
+			
+		}
+		System.out.print("\nEnter(1.Apply/2.Update/3.Delete/4.Retrive): ");
 		String enter = scan.next();
-		Pattern p = Pattern.compile("^[1-5]$");
+		Pattern p = Pattern.compile("^[1-4]$");
 		Matcher m = p.matcher(enter);
 		while(m.find())
 		{
@@ -76,25 +106,21 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 			switch(enterto)
 			{
 				case 1:
-					ResultSet resultSet = prepareStatement.executeQuery(); //registration
-					while(resultSet.next())
-					{
-						String name = resultSet.getString(1);
-			            existingList.add(name);
-					}
-					if(existingList.contains(objectForPojo.getEmployeeName()))
-					{
-						 System.out.println("User already Registered.");
-					}
-					else
-					{
-						System.out.println("Registration Successfull..");
-						objectForimplementation.forRegister();
-					}
-					break;
+					System.out.println("Successfully loggedin...");
+					String insertStatement = "insert into leaveManage(employeeID, dateOfLeave, reasonOfLeave, numberOfDays)values(?,?,?,?)";
+					PreparedStatement prepareStatement1 = getConnection.prepareStatement(insertStatement);
+					
+					prepareStatement1.setInt(1, objectForPojo.getEmployeeID());
+					prepareStatement1.setString(2, objectForPojo.getDateOfLeave());
+					prepareStatement1.setString(3, objectForPojo.getReasonOfLeave());
+					prepareStatement1.setInt(4, objectForPojo.getNumberOfDays());
+
+					@SuppressWarnings("unused")
+					int rows = prepareStatement1.executeUpdate();
+					break;//login
 				case 2:
 					java.sql.Statement updateStatement = getConnection.createStatement();
-					String update = "update leaveManagement set employeeID = 1, employeeName ='Raks' where employeeID = 3333";
+					String update = "update leaveManage set numberOfDays = '6 Months'  where reasonOfLeave ='Maternity Period'";
 					updateStatement.executeUpdate(update);
 					System.out.println("Updated Successfully.");
 					break;
@@ -109,44 +135,20 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 				case 4:
 					java.sql.Statement retriveStatement = getConnection.createStatement();
 					String retrive = "select employeeID, contactNumber from leaveManagement where sNo = 1";
-					ResultSet resultSet1 = retriveStatement.executeQuery(retrive);
-					while(resultSet1.next())
+					ResultSet resultSet2 = retriveStatement.executeQuery(retrive);
+					while(resultSet2.next())
 					{
-						System.out.println("\n\nRetrived Data\nEmployeeID: "+resultSet1.getString(1)+"\nContactNumber: "+resultSet1.getString(2));
+						System.out.println("\n\nRetrived Data\nEmployeeID: "+resultSet2.getString(1)+"\nContactNumber: "+resultSet2.getString(2));
 					}
-					//retrive 
-//				case 5:
-//					java.sql.Statement retriveStatement1 = getConnection.createStatement();
-//					String retrive1 = "select employeID from leaveManagement ";
-//					objectForimplementation.login();
-					
+					//retrive 					
 			}
 		}
 	}
 	
-	public void forRegister() throws ClassNotFoundException, SQLException
-	{
-		Connection getConnection = JdbcConnection.getConnection();
-		System.out.println("Table Connected.    "+getConnection);
-		String insertStatement = "insert into leaveManagement(employeeID, employeeName, contactNumber, emergencyContact, department, dateOfLeave, reasonOfLeave, numberOfDays)values(?,?,?,?,?,?,?,?)";
-		PreparedStatement prepareStatement1 = getConnection.prepareStatement(insertStatement);
-		
-		prepareStatement1.setInt(1, objectForPojo.getEmployeeID());
-		prepareStatement1.setString(2, objectForPojo.getEmployeeName());
-		prepareStatement1.setLong(3, objectForPojo.getContactNumber());
-		prepareStatement1.setLong(4, objectForPojo.getEmergencyContact());
-		prepareStatement1.setString(5, objectForPojo.getDepartment());
-		prepareStatement1.setString(6, objectForPojo.getDateOfLeave());
-		prepareStatement1.setString(7, objectForPojo.getReasonOfLeave());
-		prepareStatement1.setInt(8, objectForPojo.getNumberOfDays());
-		
-		@SuppressWarnings("unused")
-		int rows = prepareStatement1.executeUpdate();
-	}
 	@Override
-	public void apply()
+	public void apply() throws ClassNotFoundException, SQLException
 	{
-		System.out.print("Enter(1/2): ");
+		System.out.print("Enter(1): ");
 		String number1 = scan.next();
 		LeaveManagementSystemValidation.numberValidation(number1);
 		int stringTonumber = Integer.parseInt(number1);
@@ -155,9 +157,20 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 			case 1:
 				objectForimplementation.signUp();
 				break;
-			case 2:
-				objectForimplementation.login();
-				break;
+//			case 2:
+//			    ///retrive here
+//				objectForimplementation.login();
+//  			    Connection getConnection = JdbcConnection.getConnection();
+//				java.sql.Statement retriveStatement = getConnection.createStatement();
+//				String retrive = "select employeeID from leaveManagement where sNo = ?";
+//				ResultSet resultSet2 = retriveStatement.executeQuery(retrive);
+//				Pattern p = Pattern.compile(id);
+//				Matcher m = p.matcher(retrive);
+//				while(m.find())
+//				{
+//					
+//				}
+//				break;
 			default:
 				objectForimplementation.apply();
 		}
@@ -260,7 +273,7 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		}
 		else
 		{
-			System.out.println("\nPassword should contain\n1.Minimum 5 characters in length.\n2.Contain Uppercase letter\n3.Lowercase letter\n3.One Special charecter\n4.Numbers");
+			System.out.println("\nPassword should contain minimum 4 characters in length: \n1.Contain Uppercase letter\n2.Lowercase letter\n3.One Special charecter\n4.Numbers");
 			System.out.println("Eg: Kim@002, kIm#765, kiM%2313");
 			objectForimplementation.createPassword();
 		}

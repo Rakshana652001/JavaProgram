@@ -11,9 +11,9 @@ public class LeaveManagementSystemMain
 		LeaveManagementSystemImplementation objectForimplementation = new LeaveManagementSystemImplementation();
 		System.out.println("Leave Application Form");
 		System.out.println("=======================");
-		System.out.println("SignUP(1)      Login(2)\n");
+		System.out.println("SignUP      \n");
+		objectForimplementation.getterSetter();
 		objectForimplementation.implementation();
-		objectForimplementation.impl();
 	}
 }
 

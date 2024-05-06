@@ -1,12 +1,13 @@
 package com.chainsys.dao;
 
+import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LeaveManagementSystemValidation 
 {
 	static LeaveManagementSystemImplementation objectForimplementations = new LeaveManagementSystemImplementation();
-	public static String numberValidation(String number1)
+	public static String numberValidation(String number1) throws ClassNotFoundException, SQLException
 	{
 		Pattern p = Pattern.compile("\\d");
 		Matcher m = p.matcher(number1);
@@ -16,7 +17,7 @@ public class LeaveManagementSystemValidation
 		}
 		else
 		{
-			System.out.println("Enter 1 or 2\n");
+			System.out.println("Enter 1 \n");
 			objectForimplementations.apply();
 		}
 		return number1;

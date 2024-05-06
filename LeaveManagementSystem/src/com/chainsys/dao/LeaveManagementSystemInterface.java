@@ -5,9 +5,9 @@ import java.sql.SQLException;
 public interface LeaveManagementSystemInterface 
 {
 	//all methods call
-	public boolean implementation() throws ClassNotFoundException, SQLException;
-	public void impl() throws ClassNotFoundException, SQLException;
-	public void apply();
+	public boolean getterSetter() throws ClassNotFoundException, SQLException;
+	public void implementation() throws ClassNotFoundException, SQLException;
+	public void apply()throws ClassNotFoundException, SQLException;
 	public void signUp();
 	public String employeeName();
 	public int employeeID();
