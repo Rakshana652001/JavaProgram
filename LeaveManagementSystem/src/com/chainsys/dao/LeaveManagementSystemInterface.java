@@ -7,7 +7,6 @@ public interface LeaveManagementSystemInterface
 	//all methods call
 	public boolean getterSetter() throws ClassNotFoundException, SQLException;
 	public void implementation() throws ClassNotFoundException, SQLException;
-	public void apply()throws ClassNotFoundException, SQLException;
 	public void signUp();
 	public String employeeName();
 	public int employeeID();
@@ -16,7 +15,7 @@ public interface LeaveManagementSystemInterface
 	public void notSameNumber();
 	public void emailId();
 	public String createPassword();
-	public int login();
+	public int login()throws ClassNotFoundException, SQLException;
 	public void password();
 	public String reasonOfLeave();
 	public int numberOfDays();

@@ -1,31 +1,16 @@
 package com.chainsys.dao;
 
-import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LeaveManagementSystemValidation 
 {
 	static LeaveManagementSystemImplementation objectForimplementations = new LeaveManagementSystemImplementation();
-	public static String numberValidation(String number1) throws ClassNotFoundException, SQLException
-	{
-		Pattern p = Pattern.compile("\\d");
-		Matcher m = p.matcher(number1);
-		if(m.find())
-		{
-			return number1;
-		}
-		else
-		{
-			System.out.println("Enter 1 \n");
-			objectForimplementations.apply();
-		}
-		return number1;
-	}
+	
 
 	public static String firstNameValidation(String employeeName)
 	{
-		Pattern p = Pattern.compile("^[a-zA-Z]*$");
+		Pattern p = Pattern.compile("^[A-Z][a-z]*$");
 		Matcher m = p.matcher(employeeName);
 		if(m.find())
 		{
@@ -114,19 +99,15 @@ public class LeaveManagementSystemValidation
 			System.out.println("Contact Number and Emergency number should not be same.");
 			objectForimplementations.emergencyNumber();
 		}
-		else
-		{
-			objectForimplementations.emailId();
-		}
 	}
 	
-	public static void emailVadidation(String gmail)
+	public static String emailVadidation(String gmail)
 	{
 		Pattern ps = Pattern.compile("[a-z0-9_/-/.]+[@][a-z]+[/.][a-z]{2,3}$");
 		Matcher ms1 = ps.matcher(gmail);
 		if(ms1.find())
 		{
-			objectForimplementations.createPassword();
+			return gmail;
 		}
 		else
 		{
@@ -136,6 +117,7 @@ public class LeaveManagementSystemValidation
 			objectForimplementations.emailId();
 			
 		}
+		return gmail;
 	}
 	
 	public static String reasonValidation(String num)
@@ -155,7 +137,7 @@ public class LeaveManagementSystemValidation
 	
 	public static String salaryValidation(String salary)
 	{
-		Pattern p = Pattern.compile("^\\d+([kw])?\\+?$");
+		Pattern p = Pattern.compile("[0-9][1-9.]*[0-9]+[1-9]*");
 		Matcher m = p.matcher(salary);
 		if(m.find())
 		{
