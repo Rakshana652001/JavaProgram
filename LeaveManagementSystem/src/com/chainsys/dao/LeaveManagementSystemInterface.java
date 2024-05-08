@@ -16,9 +16,9 @@ public interface LeaveManagementSystemInterface
 	public void emailId();
 	public String createPassword();
 	public int login()throws ClassNotFoundException, SQLException;
-	public void password();
-	public String reasonOfLeave();
-	public int numberOfDays();
+	public void password() throws ClassNotFoundException, SQLException;
+	public String reasonOfLeave() throws ClassNotFoundException, SQLException;
+	public int numberOfDays() throws ClassNotFoundException, SQLException;
 	public long payOff();
 	public String department();
 	public long totalSalary();

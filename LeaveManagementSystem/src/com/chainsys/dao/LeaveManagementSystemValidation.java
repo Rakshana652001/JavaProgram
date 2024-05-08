@@ -1,46 +1,17 @@
 package com.chainsys.dao;
 
+import java.sql.SQLException;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LeaveManagementSystemValidation 
 {
 	static LeaveManagementSystemImplementation objectForimplementations = new LeaveManagementSystemImplementation();
-	
+	static Scanner scan = new Scanner(System.in);
 
-	public static String firstNameValidation(String employeeName)
-	{
-		Pattern p = Pattern.compile("^[A-Z][a-z]*$");
-		Matcher m = p.matcher(employeeName);
-		if(m.find())
-		{
-			return employeeName;
-		}
-		else
-		{
-			System.out.println("\nName should contain only alphabets.");
-			System.out.println("Eg: Sam,Steve,Tony,Natasha.");
-			objectForimplementations.employeeName();
-		}
-		return employeeName;
-	}
 	
-	public static String lastNameValidation(String lastName)
-	{
-		Pattern p1 = Pattern.compile("^[\sa-zA-Z]*$");
-		Matcher m11 = p1.matcher(lastName);
-		if(m11.find())
-		{
-			return lastName;
-		}
-		else
-		{
-			System.out.println("\nLast Name should contain only alphabets like Initials or names.");
-			System.out.println("Eg: S, T, N");
-			objectForimplementations.employeeName();
-		}
-		return lastName;
-	}
+	
 	public static String employeeIdValidation(String id)
 	{
 		Pattern p = Pattern.compile("^\\d{4}$");
@@ -120,7 +91,7 @@ public class LeaveManagementSystemValidation
 		return gmail;
 	}
 	
-	public static String reasonValidation(String num)
+	public static String reasonValidation(String num) throws ClassNotFoundException, SQLException
 	{
 		Pattern p = Pattern.compile("^[1-3]$");
 		Matcher m = p.matcher(num);

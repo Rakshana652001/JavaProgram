@@ -3,12 +3,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import java.text.SimpleDateFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-
+import java.util.Collection;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,134 +23,58 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 {
 	LeaveManagementSystemClass objectForPojo = new LeaveManagementSystemClass(); //for get set
 	Scanner scan = new Scanner(System.in);
-	static int numberOfDays, numberofDaysEmergency, months, number, stringToInt, 
-	dayss=5, enterDepartment, pdNumber, number1ToString;
-	static String id, idCheck, passWord, passWordC, rePassword, leaveDate, 
-	format,	leaveReason, employeeName, lastName,devoloper, admin, security, 
+	static int numberOfDays, numberofDaysEmergency, months, number, stringToInt, idchecking,deleteEntryCheck,
+	dayss=5, enterDepartment, pdNumber, number1ToString, idChange;
+	static String id, idCheck, passWord, passWordC, rePassword, leaveDate, idChecking,deleteEntry,
+	format,	leaveReason, employeeName, lastName,devoloper, admin, security, employeeIDCheck,
 	accounts, marketing, gmail, concat, phoneNumber, emergencyContact, salary;
 	static Date dateOfLeave; static long  perDaySalary;	static long stringToint1, stringToint2;
 	static LeaveManagementSystemImplementation objectForImplementation = new LeaveManagementSystemImplementation();
 
-	ArrayList<Integer> existingList = new ArrayList<Integer>();
+	ArrayList<Integer> existingList = new ArrayList<Integer>(); //employeeID
+	//ArrayList<Integer> existingList1 = new ArrayList<Integer>();
+	ArrayList<String> existingPassword = new ArrayList<String>();
+	ArrayList<Integer> exsistingListForID = new ArrayList<Integer>();
+	
+//	public void register() throws ClassNotFoundException, SQLException
+//	{
+//		Connection getConnection = JdbcConnection.getConnection();
+//		
+//	}
 	
 	public void directLogin() throws ClassNotFoundException, SQLException
 	{
+		
+	}
+	
+	public void directPassword() throws SQLException, ClassNotFoundException
+	{
 		Connection getConnection = JdbcConnection.getConnection();
-		System.out.println("\nLogin");
-		System.out.println("``````");
-		System.out.print("Enter your employee ID: ");
-		idCheck = scan.next();
-		Pattern p = Pattern.compile("^\\d{4}$");
-		Matcher m = p.matcher(idCheck);
-		if(m.find())
+		System.out.println("Enter PassWord: ");
+		String passWordCheck = scan.next();
+		Pattern ps = Pattern.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{5,}$");
+		Matcher m1 = ps.matcher(passWordCheck);
+		if(m1.find())
 		{
-			String selectEmployeeID = "select employeeID from leaveManagement";	
-			PreparedStatement prepare = getConnection.prepareStatement(selectEmployeeID);
+			String selectPassword = "select passWord from leaveManagement where employeeID = ?";	
+			PreparedStatement prepare = getConnection.prepareStatement(selectPassword);
+			prepare.setString(1, employeeIDCheck);  // for ?
 			ResultSet resultSet = prepare.executeQuery();
 			while(resultSet.next())
 			{
-				int id = resultSet.getInt(1);
-				existingList.add(id);
+				String passWord = resultSet.getString(1); 
+				existingPassword.add(passWord);
 			}
-			if(existingList.contains(idCheck))
+			if(existingPassword.contains(passWordCheck))
 			{
-				objectForImplementation.password();
-			}
-//			else
-//			{
-//				objectForImplementation.directLogin();
-//			}
-		}
-	}
-		
-////			//java.sql.Statement retriveStatement = getConnection.createStatement();
-////			//String retrive = "select employeeID from leaveManagement";
-////			ResultSet resultSet2 = retriveStatement.executeQuery(selectEmployeeID);
-////			while(resultSet2.next())
-////			{
-////				String get = resultSet2.getString(1);
-////				Pattern p = Pattern.compile(id);
-////				Matcher m = p.matcher(get);
-////				if(m.find())
-////				{
-////					objectForImplementation.
-////				}
-//				
-//			}
-	public boolean getterSetter() throws ClassNotFoundException, SQLException 
-	{
-		System.out.println("\nEmployeeName: "+objectForPojo.getEmployeeName());
-		System.out.println("EmployeeID: "+(objectForPojo.getEmployeeID()));
-		System.out.println("Contact Number: "+(objectForPojo.getContactNumber()));
-		System.out.println("Emergency Contact: "+(objectForPojo.getEmergencyContact()));
-		System.out.println("Department: "+(objectForPojo.getDepartment()));
-		System.out.println("Applied on: "+(objectForPojo.getDateOfLeave()));
-		System.out.println("Leave Reason: "+(objectForPojo.getReasonOfLeave()));
-		System.out.println("Number of days leave: "+(objectForPojo.getNumberOfDays()));	
-		objectForImplementation.payOff();
-		return false;			
-	}
-	
-	
-	
-	public void implementation() throws SQLException, ClassNotFoundException 
-	{
-		Connection getConnection = JdbcConnection.getConnection();
-		System.out.print("\nEnter:");
-		System.out.println("\n1.Register\n2.Login\n3.Update\n4.Delete\n5.Retrive");
-		String enter = scan.next();
-		Pattern p = Pattern.compile("^[1-4]$");
-		Matcher m = p.matcher(enter);
-		if(m.find())
-		{
-			int enterto = Integer.parseInt(enter);
-			switch(enterto)
-			{
-				case 1:
-					
-					Connection getConnection1 = JdbcConnection.getConnection();
-					objectForImplementation.signUp();
-					objectForPojo.setEmployeeName(concat);
-					objectForPojo.setEmployeeID(stringToInt);
-					objectForPojo.setContactNumber(stringToint1);
-					objectForPojo.setEmergencyContact(stringToint2);
-					objectForPojo.setDepartment(objectForImplementation.department());
-					String selectEmployeeID = "select employeeID from leaveManagement";
-					PreparedStatement prepareStatement = getConnection1.prepareStatement(selectEmployeeID);
-					
-					ResultSet resultSet = prepareStatement.executeQuery(); //registration
-					while(resultSet.next())
-					{
-						int id = resultSet.getInt(1);
-						existingList.add(id);
-					}
-					if(existingList.contains(objectForPojo.getEmployeeID()))
-					{
-						System.out.println("User already Registered.");
-					}
-					else
-					{
-						System.out.println("\nRegistration Successfull..");
-						String insertStatement = "insert into leaveManagement(employeeID, employeeName, contactNumber, emergencyContact, department)values(?,?,?,?,?)";
-						PreparedStatement prepareStatement1 = getConnection1.prepareStatement(insertStatement);
-						
-						prepareStatement1.setInt(1, objectForPojo.getEmployeeID());
-						prepareStatement1.setString(2, objectForPojo.getEmployeeName());
-						prepareStatement1.setLong(3, objectForPojo.getContactNumber());
-						prepareStatement1.setLong(4, objectForPojo.getEmergencyContact());
-						prepareStatement1.setString(5, objectForPojo.getDepartment());
-						
-						@SuppressWarnings("unused")
-						int rows = prepareStatement1.executeUpdate();
-						
-					}
-				case 2:
-					objectForImplementation.directLogin();
+				System.out.println("Login successfull.");
+				try
+				{
 					String insertStatement = "insert into leaveManage(employeeID, dateOfLeave, reasonOfLeave, numberOfDays)values(?,?,?,?)";
 					PreparedStatement prepareStatement1 = getConnection.prepareStatement(insertStatement);
-					objectForPojo.setEmployeeID(stringToInt);
+					objectForPojo.setEmployeeID(idChange); //stored id during direct login
 					objectForPojo.setDateOfLeave(objectForImplementation.dateOfLeave());
-					objectForPojo.setReasonOfLeave(leaveReason);
+					objectForPojo.setReasonOfLeave(objectForImplementation.reasonOfLeave());
 					objectForPojo.setNumberOfDays(objectForImplementation.numberOfDays());
 					prepareStatement1.setInt(1, objectForPojo.getEmployeeID());
 					prepareStatement1.setString(2, objectForPojo.getDateOfLeave());
@@ -157,39 +84,292 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 					@SuppressWarnings("unused")
 					int rows = prepareStatement1.executeUpdate();
 					System.out.println("\nApplied Successfully.");
-					break;//login
-				case 3:
-					java.sql.Statement updateStatement = getConnection.createStatement();
-					String update = "update leaveManage set numberOfDays = '6 Months'  where reasonOfLeave ='Maternity Period'";
-					updateStatement.executeUpdate(update);
-					System.out.println("\nUpdated Successfully.");
-					break;
-					 //update 
-				case 4:
-					java.sql.Statement deleteStatement = getConnection.createStatement();
-					String delete = "delete from leaveManagement where sNo=2";
-					deleteStatement.executeUpdate(delete);
-					System.out.println("\nDeleted successfully.");
-					break;
-					//delete
-				case 5:
-					java.sql.Statement retriveStatement = getConnection.createStatement();
-					String retrive = "select employeeID from leaveManagement sNo = 1";
-					ResultSet resultSet2 = retriveStatement.executeQuery(retrive);
-					while(resultSet2.next())
-					{
-						System.out.println("\n\nRetrived Data\nEmployeeID: "+resultSet2.getString(1)+"\nContactNumber: "+resultSet2.getString(2));
-					}
-					//retrive 					
+				}
+				catch(SQLIntegrityConstraintViolationException e)
+				{
+					System.out.println("\nYou have already applied a leave in this day");
+					System.out.println("\nEnter Correct Password");
+					objectForImplementation.directPassword();
+				}	
+			}
+				else
+				{
+					System.out.println("\nEnter correct Password.");
+					objectForImplementation.directPassword();
+				}
+			}
+			else
+			{
+				System.out.println("\nEnter Correct Password");
+				objectForImplementation.directPassword();
+			}
+		}
+	
+
+	public Collection<?> idCheck() throws ClassNotFoundException, SQLException
+	{
+		Connection getConnection1 = JdbcConnection.getConnection();
+		System.out.println("Enter your EmployeeId: ");
+		employeeIDCheck = scan.next();
+		Pattern p = Pattern.compile("^\\d{4}$");
+		Matcher m = p.matcher(employeeIDCheck);
+		if(m.find())
+		{
+			idChange = Integer.parseInt(employeeIDCheck);
+			String selectID = "select employeeID from leaveManagement";
+			PreparedStatement prepareStatement1 = getConnection1.prepareStatement(selectID);
+			ResultSet resultSet1 = prepareStatement1.executeQuery();
+			while(resultSet1.next())
+			{
+				int id1 = resultSet1.getInt(1);					
+				exsistingListForID.add(id1); //store in array
 			}
 		}
 		else
 		{
+			System.out.println("\nIncorrect Id");
+			System.out.println("Employee ID should contain 4integers.\nEg: 3556, 3557, 3558..");	
 			objectForImplementation.implementation();
 		}
+		return existingList;
+	}
+//	public void update() throws ClassNotFoundException, SQLException
+//	{
+//		Connection getConnection2 = JdbcConnection.getConnection();
+//		
+//	}
+//	
+//	public void delete() throws ClassNotFoundException, SQLException
+//	{
+//		Connection getConnection2 = JdbcConnection.getConnection();
+//		
+//		
+//	}
+//	
+	public boolean getterSetter() throws ClassNotFoundException, SQLException 
+	{
+		objectForImplementation.directLogin();
+		System.out.println("\nEmployeeName: "+objectForPojo.getEmployeeName());
+		System.out.println("EmployeeID: "+(objectForPojo.getEmployeeID()));
+		System.out.println("Contact Number: "+(objectForPojo.getContactNumber()));
+		System.out.println("Emergency Contact: "+(objectForPojo.getEmergencyContact()));
+		System.out.println("Department: "+(objectForPojo.getDepartment()));
+		System.out.println("Applied on: "+(objectForPojo.getDateOfLeave()));
+		System.out.println("Leave Reason: "+(objectForPojo.getReasonOfLeave()));
+		System.out.println("Number of days leave: "+(objectForPojo.getNumberOfDays()));	
+		objectForImplementation.payOff();
+		objectForImplementation.implementation();
+		return false;			
+	}
+	
+	
+
+	public void implementation() throws SQLException, ClassNotFoundException 
+	{
+			Connection getConnection1 = JdbcConnection.getConnection();
+			System.out.println("\n1.Register\n2.Login and Apply\n3.Update\n4.Delete\n5.Retrive");
+			System.out.print("\nEnter:");
+			String enter = scan.next();
+			Pattern p = Pattern.compile("^[1-5]$");
+			Matcher m = p.matcher(enter);
+			if(m.find())
+			{
+				int enterto = Integer.parseInt(enter);
+				switch(enterto)
+				{
+					case 1:
+						objectForImplementation.signUp();
+						objectForPojo.setEmployeeName(concat);
+						objectForPojo.setEmployeeID(stringToInt);
+						objectForPojo.setPassWord(rePassword);
+						objectForPojo.setContactNumber(stringToint1);
+						objectForPojo.setEmergencyContact(stringToint2);
+						objectForPojo.setDepartment(objectForImplementation.department());
+						String selectEmployeeID = "select employeeID from leaveManagement";
+						PreparedStatement prepareStatement = getConnection1.prepareStatement(selectEmployeeID);
+						
+						ResultSet resultSet = prepareStatement.executeQuery(); //registration
+						while(resultSet.next())
+						{
+							int id = resultSet.getInt(1);
+							existingList.add(id);
+						}
+						if(existingList.contains(objectForPojo.getEmployeeID()))
+						{
+							System.out.println("User already Registered.");
+							objectForImplementation.implementation();
+						}
+						else
+						{
+								String insertStatement = "insert into leaveManagement(employeeID,employeeName,passWord, contactNumber, emergencyContact, department)values(?,?,?,?,?,?)";
+								PreparedStatement prepareStatement1 = getConnection1.prepareStatement(insertStatement);
+								
+								prepareStatement1.setInt(1, objectForPojo.getEmployeeID());
+								prepareStatement1.setString(2, objectForPojo.getEmployeeName());
+								prepareStatement1.setString(3, objectForPojo.getPassWord());
+								prepareStatement1.setLong(4, objectForPojo.getContactNumber());
+								prepareStatement1.setLong(5, objectForPojo.getEmergencyContact());
+								prepareStatement1.setString(6, objectForPojo.getDepartment());
+								
+								@SuppressWarnings("unused")
+								int rows = prepareStatement1.executeUpdate();
+								System.out.println("\nRegistration Successfull..");
+								objectForImplementation.getterSetter();
+						}
+						break;
+					case 2:
+						System.out.println("\nLogin");
+						System.out.println("``````");
+						if(existingList.containsAll(objectForImplementation.idCheck())) //if contain
+								{
+									objectForImplementation.directPassword(); //execute
+								}
+								else
+								{
+									System.out.println("\nEnter Registered EmployeeID.");
+									objectForImplementation.directLogin();
+								}						
+						break;//login
+					case 3:
+						try
+						{
+							System.out.println("\nEnter what you want to update: ");
+							System.out.println("1.EmployeeName\n2.ContactNumber\n3.Emergency Contact Number\n4.Reset Password\n5.Change leave type\n6.Number Of Days");
+							int number = scan.nextInt();
+							switch(number)
+							{
+								case 1:   //employeeName update completed
+									try
+									{
+										if(exsistingListForID.containsAll(objectForImplementation.idCheck()))
+										{
+											System.out.println("Enter Changing name: ");
+											String name = scan.next();
+											String update = "update leaveManagement set employeeName = ? where employeeID =?";
+											PreparedStatement prepareStatement1 = getConnection1.prepareStatement(update);
+											prepareStatement1.setString(1, name);
+											prepareStatement1.setInt(2, idChange);
+											prepareStatement1.executeUpdate();
+											System.out.println("\nUpdated Successfully.");
+										}
+										else
+										{
+											System.out.println("Enter Registered EmployeeID");
+											objectForImplementation.implementation();
+										}
+									}
+									catch(SQLIntegrityConstraintViolationException e)
+									{
+										System.out.println(e);
+										objectForImplementation.implementation();
+									}
+										
+										
+									break;
+								case 2:  //contact update completed
+									
+										if(exsistingListForID.containsAll(objectForImplementation.idCheck()))
+										{
+											System.out.println("Enter Changing contact number: ");
+											long getnumber = scan.nextLong();
+											String update = "update leaveManagement set contactNumber = ? where employeeID =?";
+											PreparedStatement prepareStatement2 = getConnection1.prepareStatement(update);
+											prepareStatement2.setLong(1, getnumber);
+											prepareStatement2.setInt(2, idChange);
+											prepareStatement2.executeUpdate();
+											System.out.println("\nUpdated Successfully.");
+										}
+									break;
+								case 3:
+									
+										if(exsistingListForID.containsAll(objectForImplementation.idCheck()))
+										{
+											System.out.println("Enter Changing contact number: ");
+											long getnumber = scan.nextLong();
+											String update = "update leaveManagement set emergencyContact = ? where employeeID =?";
+											PreparedStatement prepareStatement3 = getConnection1.prepareStatement(update);
+											prepareStatement3.setLong(1, getnumber);
+											prepareStatement3.setInt(2, idChange);
+											prepareStatement3.executeUpdate();
+											System.out.println("\nUpdated Successfully.");
+										
+									}
+									break;
+								default:
+									objectForImplementation.implementation();	
+								
+							}
+							
+						}
+						catch(InputMismatchException e)
+						{
+							System.out.println(e);
+							objectForImplementation.implementation();
+						}
+						break;
+						 //update Not completed
+					case 4:
+						System.out.println("Enter your EmployeeId: ");
+						deleteEntry = scan.next();
+						Pattern p1 = Pattern.compile("^\\d{4}$");
+						Matcher m1 = p1.matcher(deleteEntry);
+						if(m1.find())
+						{
+							deleteEntryCheck = Integer.parseInt(deleteEntry);
+							String selectID = "select employeeID from leaveManagement";
+							PreparedStatement prepareStatement1 = getConnection1.prepareStatement(selectID);
+							ResultSet resultSet1 = prepareStatement1.executeQuery();
+							while(resultSet1.next())
+							{
+								int id = resultSet1.getInt(1);					
+								existingList.add(id); //store in array
+							}
+							if(existingList.contains(deleteEntryCheck))
+							{
+								String delete = "delete from leaveManage where employeeID=?";
+								PreparedStatement prepareStatement2 = getConnection1.prepareStatement(delete);
+								prepareStatement2.setInt(1, deleteEntryCheck);
+								prepareStatement2.executeUpdate();
+								System.out.println("\nDeleted successfully.");
+							}
+							else
+							{
+								System.out.println("Enter Registered ID");
+								objectForImplementation.implementation();
+							}
+						}
+						else
+						{
+							System.out.println("\nIncorrect Id");
+							System.out.println("Employee ID should contain 4integers.\nEg: 3556, 3557, 3558..");
+							objectForImplementation.implementation();	
+						}
+						break;
+						//delete Completed
+//					case 5:
+//						java.sql.Statement retriveStatement = getConnection.createStatement();
+//						String retrive = "select * from leaveManagement where employeeID = 3556";
+//						ResultSet resultSet2 = retriveStatement.executeQuery(retrive);
+//						while(resultSet2.next())
+//						{
+//							System.out.println("\n\nRetrived Data\nEmployeeID: "+resultSet2.getString(2)+"\nEmployeeName: "+resultSet2.getString(4));
+//						}
+//						//retrive not completed
+//						break;
+					default:
+						objectForImplementation.implementation();					
+				}
+			}
+			else
+			{
+				objectForImplementation.implementation();
+			}
+		getConnection1.close();
 		
 	}
 	
+	
+
 	@Override
 	public void signUp() 
 	{
@@ -210,11 +390,32 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		System.out.println("`````````````````");
 		System.out.print("Enter your First Name: ");
 		employeeName = scan.next();
-		LeaveManagementSystemValidation.firstNameValidation(employeeName);
-		System.out.print("Enter your Last Name: ");
-		lastName = scan.next();
-		LeaveManagementSystemValidation.lastNameValidation(lastName);
-		concat = employeeName.concat(lastName);
+		Pattern p = Pattern.compile("^[A-Z][a-z]*$");
+		Matcher m = p.matcher(employeeName);
+		if(m.find())
+		{
+			System.out.print("Enter your Last Name: ");
+			lastName = scan.next();
+			Pattern p1 = Pattern.compile("^[A-Za-z]*$");
+			Matcher m11 = p1.matcher(lastName);
+			if(m11.find())
+			{
+				
+				concat = employeeName.concat(lastName);
+			}
+			else
+			{
+				System.out.println("\nLast Name should contain only alphabets like Initials or names.");
+				System.out.println("Eg: S, T, N");
+				objectForImplementation.employeeName();
+			}
+		}
+		else
+		{
+			System.out.println("\nName should contain only alphabets.");
+			System.out.println("Eg: Sam,Steve,Tony,Natasha.");
+			objectForImplementation.employeeName();
+		}
 		return concat;
 		
 	}
@@ -291,9 +492,7 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 			System.out.println("Eg: Kim@002, kIm#765, kiM%2313");
 			objectForImplementation.createPassword();
 		}
-		
 		return rePassword;
-		
 	}
 	
 	@Override
@@ -329,7 +528,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 			}
 			System.out.println("\nSuccessfully SignedUP!!!");
 			return accounts;
-			
 		}
 		else
 		{
@@ -341,29 +539,32 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	@Override
 	public int login() throws ClassNotFoundException, SQLException 
 	{
-		System.out.println("\nLogin");
-		System.out.println("``````");
-		System.out.print("Enter your employee ID: ");
-		idCheck = scan.next();
-		String empID = Integer.toString(stringToInt);
-		Pattern p = Pattern.compile(empID);
-		Matcher m = p.matcher(idCheck);
-		if(m.find())
+		try
 		{
-			objectForImplementation.password();
-		}
-		else
-		{
-			System.out.println("\nLogin Failed!!! Enter correct employeeID.");
-			objectForImplementation.login();
+			System.out.println("\nLogin");
+			System.out.println("``````");
+			System.out.print("Enter your employee ID: ");
+			idCheck = scan.next();
+			String empID = Integer.toString(stringToInt);
+			Pattern p = Pattern.compile(empID);
+			Matcher m = p.matcher(idCheck);
+			if(m.find())
+			{
+				objectForImplementation.password();
+			}
 			
+			stringToInt = Integer.parseInt(id);
 		}
-		stringToInt = Integer.parseInt(id);
+		catch(IndexOutOfBoundsException e)
+		{
+			System.out.println(e);
+			objectForImplementation.login();
+		}
 		return stringToInt;
 	}
 	
 	@Override
-	public void password()
+	public void password() throws ClassNotFoundException, SQLException
 	{
 		System.out.print("PassWord: ");
 		passWord = scan.next();
@@ -383,7 +584,7 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	}
 	
 	@Override
-	public String reasonOfLeave() 
+	public String reasonOfLeave() throws ClassNotFoundException, SQLException 
 	{
 		System.out.println("\nEnter your Reason");
 		System.out.println("``````````````````");
@@ -408,13 +609,15 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 				System.out.println("\nMaternity Period");
 				leaveReason = "Maternity Period";
 				System.out.println("Allowed only for 6months with work from home");
+//				System.out.println("Enter 3 to Update as 6Months");
+//				objectForImplementation.implementation();
 				return leaveReason;
 		}
 		return leaveReason;
 	}
 	
 	@Override
-	public int numberOfDays()
+	public int numberOfDays() throws ClassNotFoundException, SQLException
 	{
 		if(number == 1)
 			{
@@ -461,13 +664,11 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 			{
 				return 0;
 			}
-			
-		
 		return 0;
 	}
 	
 	@Override
-	public long payOff() 
+	public long payOff()
 	{
 		if(leaveReason == "Permission")
 		{
@@ -496,13 +697,11 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 					System.out.println("You exceded more than 2 days in this month for getting Permission");
 					System.out.println("Payoff for "+number1ToString+" days: "+(perDaySalary*number1ToString));
 					break;
-			}
-			
+			}	
 			dayss = dayss-number1ToString;
 			System.out.println("Remaining days for getting Permission in this month: "+dayss);
 			return dayss;
 		}
-		
 		if(leaveReason == "SickLeave")
 		{
 			
@@ -521,7 +720,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 			}
 			return numberOfDays;
 		}
-
 		else if(leaveReason == "Maternity Period")
 		{
 			months = 6;
@@ -530,12 +728,10 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 			System.out.println("No Payoff but Work From Home");
 			return months;
 		}
-		
 		else
 		{
 			System.out.println("No leave granted.");
 		}
-		
 	return months;
 	}
 	
@@ -548,8 +744,7 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 			salary = scan.next();
 			//LeaveManagementSystemValidation.salaryValidation(salary);
 			long salaryLong = Long.parseLong(salary);
-			perDaySalary = (salaryLong/30);
-			
+			perDaySalary = (salaryLong/30);	
 		}
 		catch(NumberFormatException e)
 		{
@@ -557,8 +752,8 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 			objectForImplementation.totalSalary();
 		}
 		return perDaySalary;
-	  }
-		
+	 }
+	
 	@Override
 	public String dateOfLeave() 
 	{
@@ -573,7 +768,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		LocalDate today = LocalDate.now();
 		LocalDate tomorrow = today.plusDays(numberOfDays);
 		System.out.println("Leave End Date: "+tomorrow);
-		
 	}
 	@Override
 	public void endDateE() 
@@ -581,15 +775,12 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		LocalDate today = LocalDate.now();
 		LocalDate tomorrow = today.plusDays(number1ToString);
 		System.out.println("Leave End Date: "+tomorrow);
-		
 	}
 	@Override
 	public void endDateMatertiny() 
 	{
 		LocalDate now =  LocalDate.now();  
 		LocalDate sameDayNextMonth = now.plusMonths(months);
-		System.out.println("Leave End Date: "+sameDayNextMonth);
-		
+		System.out.println("Leave End Date: "+sameDayNextMonth);	
 	}
-
 }

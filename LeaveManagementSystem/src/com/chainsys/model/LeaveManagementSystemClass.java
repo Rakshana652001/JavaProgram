@@ -4,6 +4,7 @@ package com.chainsys.model;
 public class LeaveManagementSystemClass 
 {
 	int employeeID;
+	String passWord;
 	String dateOfLeave; 
 	String reasonOfLeave;
 	int numberOfDays;
@@ -15,6 +16,12 @@ public class LeaveManagementSystemClass
 	}
 	public void setEmployeeID(int employeeID) {
 		this.employeeID = employeeID;
+	}
+	public String getPassWord() {
+		return passWord;
+	}
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
 	}
 	public String getDateOfLeave() {
 		return dateOfLeave;
@@ -60,10 +67,10 @@ public class LeaveManagementSystemClass
 	}
 	@Override
 	public String toString() {
-		return "LeaveManagementSystemClass [employeeID=" + employeeID + ", dateOfLeave=" + dateOfLeave
-				+ ", reasonOfLeave=" + reasonOfLeave + ", numberOfDays=" + numberOfDays + ", employeeName="
-				+ employeeName + ", contactNumber=" + contactNumber + ", emergencyContact=" + emergencyContact
-				+ ", department=" + department + "]";
+		return "LeaveManagementSystemClass [employeeID=" + employeeID + ", passWord=" + passWord + ", dateOfLeave="
+				+ dateOfLeave + ", reasonOfLeave=" + reasonOfLeave + ", numberOfDays=" + numberOfDays
+				+ ", employeeName=" + employeeName + ", contactNumber=" + contactNumber + ", emergencyContact="
+				+ emergencyContact + ", department=" + department + "]";
 	}
 	
 	

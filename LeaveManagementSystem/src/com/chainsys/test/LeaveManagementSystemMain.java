@@ -12,7 +12,7 @@ public class LeaveManagementSystemMain
 		System.out.println("Leave Application Form");
 		System.out.println("=======================");
 		objectForimplementation.implementation();
-		objectForimplementation.getterSetter();
+		
 		
 	}
 }
