@@ -262,12 +262,9 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 									{
 										System.out.println(e);
 										objectForImplementation.implementation();
-									}
-										
-										
+									}	
 									break;
 								case 2:  //contact update completed
-									
 										if(exsistingListForID.containsAll(objectForImplementation.idCheck()))
 										{
 											System.out.println("Enter Changing contact number: ");
@@ -281,7 +278,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 										}
 									break;
 								case 3:
-									
 										if(exsistingListForID.containsAll(objectForImplementation.idCheck()))
 										{
 											System.out.println("Enter Changing contact number: ");
@@ -292,14 +288,11 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 											prepareStatement3.setInt(2, idChange);
 											prepareStatement3.executeUpdate();
 											System.out.println("\nUpdated Successfully.");
-										
 									}
 									break;
 								default:
 									objectForImplementation.implementation();	
-								
 							}
-							
 						}
 						catch(InputMismatchException e)
 						{
@@ -365,11 +358,8 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 				objectForImplementation.implementation();
 			}
 		getConnection1.close();
-		
 	}
 	
-	
-
 	@Override
 	public void signUp() 
 	{
@@ -400,7 +390,6 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 			Matcher m11 = p1.matcher(lastName);
 			if(m11.find())
 			{
-				
 				concat = employeeName.concat(lastName);
 			}
 			else
