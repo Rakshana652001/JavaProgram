@@ -8,11 +8,9 @@ public class JdbcConnection
 {
 	public static void main(String args []) throws ClassNotFoundException, SQLException
 	{
-		Connection getConnection = JdbcConnection.getConnection();
-		System.out.println(getConnection);
-		
+		Connection getConnection = JdbcConnection.getConnection(); //connection call
+		System.out.println(getConnection);	
 	}
-
 	public static Connection getConnection() throws SQLException, ClassNotFoundException 
 	{
 		Class.forName("com.mysql.cj.jdbc.Driver");

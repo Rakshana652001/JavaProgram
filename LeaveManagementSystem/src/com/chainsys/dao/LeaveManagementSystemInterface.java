@@ -2,9 +2,8 @@ package com.chainsys.dao;
 
 import java.sql.SQLException;
 
-public interface LeaveManagementSystemInterface 
+public interface LeaveManagementSystemInterface  
 {
-	//all methods call
 	public boolean getterSetter() throws ClassNotFoundException, SQLException;
 	public void implementation() throws ClassNotFoundException, SQLException;
 	public void signUp();

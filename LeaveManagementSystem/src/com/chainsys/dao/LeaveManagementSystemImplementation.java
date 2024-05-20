@@ -4,14 +4,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
-
+import java.sql.SQLSyntaxErrorException;
 import java.text.SimpleDateFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,7 +17,7 @@ import java.util.regex.Pattern;
 import com.chainsys.model.LeaveManagementSystemClass;
 import com.chainsys.util.JdbcConnection;
 
-public class LeaveManagementSystemImplementation implements LeaveManagementSystemInterface
+public class LeaveManagementSystemImplementation implements LeaveManagementSystemInterface //overriding
 {
 	LeaveManagementSystemClass objectForPojo = new LeaveManagementSystemClass(); //for get set
 	Scanner scan = new Scanner(System.in);
@@ -32,20 +30,12 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 	static LeaveManagementSystemImplementation objectForImplementation = new LeaveManagementSystemImplementation();
 
 	ArrayList<Integer> existingList = new ArrayList<Integer>(); //employeeID
-	//ArrayList<Integer> existingList1 = new ArrayList<Integer>();
-	ArrayList<String> existingPassword = new ArrayList<String>();
+	
+	ArrayList<String> existingPassword = new ArrayList<String>(); //Password
+	
 	ArrayList<Integer> exsistingListForID = new ArrayList<Integer>();
-	
-//	public void register() throws ClassNotFoundException, SQLException
-//	{
-//		Connection getConnection = JdbcConnection.getConnection();
-//		
-//	}
-	
-	public void directLogin() throws ClassNotFoundException, SQLException
-	{
-		
-	}
+
+
 	
 	public void directPassword() throws SQLException, ClassNotFoundException
 	{
@@ -84,8 +74,9 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 					@SuppressWarnings("unused")
 					int rows = prepareStatement1.executeUpdate();
 					System.out.println("\nApplied Successfully.");
+					objectForImplementation.getterSetter();
 				}
-				catch(SQLIntegrityConstraintViolationException e)
+				catch(SQLIntegrityConstraintViolationException e) //foreign key exception
 				{
 					System.out.println("\nYou have already applied a leave in this day");
 					System.out.println("\nEnter Correct Password");
@@ -106,7 +97,7 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		}
 	
 
-	public Collection<?> idCheck() throws ClassNotFoundException, SQLException
+	public  ArrayList<Integer> idCheck() throws ClassNotFoundException, SQLException //check id from array list
 	{
 		Connection getConnection1 = JdbcConnection.getConnection();
 		System.out.println("Enter your EmployeeId: ");
@@ -133,23 +124,10 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 		}
 		return existingList;
 	}
-//	public void update() throws ClassNotFoundException, SQLException
-//	{
-//		Connection getConnection2 = JdbcConnection.getConnection();
-//		
-//	}
-//	
-//	public void delete() throws ClassNotFoundException, SQLException
-//	{
-//		Connection getConnection2 = JdbcConnection.getConnection();
-//		
-//		
-//	}
-//	
+	
 	public boolean getterSetter() throws ClassNotFoundException, SQLException 
 	{
-		objectForImplementation.directLogin();
-		System.out.println("\nEmployeeName: "+objectForPojo.getEmployeeName());
+		System.out.println("\nEmployeeName: "+concat);
 		System.out.println("EmployeeID: "+(objectForPojo.getEmployeeID()));
 		System.out.println("Contact Number: "+(objectForPojo.getContactNumber()));
 		System.out.println("Emergency Contact: "+(objectForPojo.getEmergencyContact()));
@@ -174,8 +152,8 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 			Matcher m = p.matcher(enter);
 			if(m.find())
 			{
-				int enterto = Integer.parseInt(enter);
-				switch(enterto)
+				int enterTo = Integer.parseInt(enter);
+				switch(enterTo)
 				{
 					case 1:
 						objectForImplementation.signUp();
@@ -227,14 +205,14 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 								else
 								{
 									System.out.println("\nEnter Registered EmployeeID.");
-									objectForImplementation.directLogin();
+									objectForImplementation.implementation();
 								}						
 						break;//login
 					case 3:
 						try
 						{
 							System.out.println("\nEnter what you want to update: ");
-							System.out.println("1.EmployeeName\n2.ContactNumber\n3.Emergency Contact Number\n4.Reset Password\n5.Change leave type\n6.Number Of Days");
+							System.out.println("1.EmployeeName\n2.ContactNumber\n3.Emergency Contact Number\n4.Reset Password");
 							int number = scan.nextInt();
 							switch(number)
 							{
@@ -277,10 +255,10 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 											System.out.println("\nUpdated Successfully.");
 										}
 									break;
-								case 3:
+								case 3:    //emergency contact
 										if(exsistingListForID.containsAll(objectForImplementation.idCheck()))
 										{
-											System.out.println("Enter Changing contact number: ");
+											System.out.println("Enter Changing emergency contact number: ");
 											long getnumber = scan.nextLong();
 											String update = "update leaveManagement set emergencyContact = ? where employeeID =?";
 											PreparedStatement prepareStatement3 = getConnection1.prepareStatement(update);
@@ -290,17 +268,30 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 											System.out.println("\nUpdated Successfully.");
 									}
 									break;
+								case 4:  //reset password
+									if(exsistingListForID.containsAll(objectForImplementation.idCheck()))
+									{
+										System.out.println("Enter Resetting password: ");
+										String password = scan.next();
+										String update = "update leaveManagement set passWord = ? where employeeID =?";
+										PreparedStatement prepareStatement3 = getConnection1.prepareStatement(update);
+										prepareStatement3.setString(1, password);
+										prepareStatement3.setInt(2, idChange);
+										prepareStatement3.executeUpdate();
+										System.out.println("\nPassword resetted Successfully.");
+									}									
+									break;
 								default:
 									objectForImplementation.implementation();	
 							}
 						}
-						catch(InputMismatchException e)
+						catch(SQLSyntaxErrorException e)
 						{
 							System.out.println(e);
 							objectForImplementation.implementation();
 						}
 						break;
-						 //update Not completed
+						 //update completed
 					case 4:
 						System.out.println("Enter your EmployeeId: ");
 						deleteEntry = scan.next();
@@ -339,16 +330,17 @@ public class LeaveManagementSystemImplementation implements LeaveManagementSyste
 						}
 						break;
 						//delete Completed
-//					case 5:
-//						java.sql.Statement retriveStatement = getConnection.createStatement();
-//						String retrive = "select * from leaveManagement where employeeID = 3556";
-//						ResultSet resultSet2 = retriveStatement.executeQuery(retrive);
-//						while(resultSet2.next())
-//						{
-//							System.out.println("\n\nRetrived Data\nEmployeeID: "+resultSet2.getString(2)+"\nEmployeeName: "+resultSet2.getString(4));
-//						}
-//						//retrive not completed
-//						break;
+					case 5:
+							String retrive = "select * from manager where managerID = 1001";
+							PreparedStatement preparedStatement = getConnection1.prepareStatement(retrive);
+							//preparedStatement.setString(1, employeeIDCheck);
+							ResultSet resultSet2 = preparedStatement.executeQuery(retrive);
+							while(resultSet2.next())
+							{
+								System.out.println("\n\nRetrived Data\nEmployeeID: "+resultSet2.getString(1)+"\nEmployeeName: "+resultSet2.getString(2)+"\nContact Number: "+resultSet2.getString(3));
+							}
+						//retrive not completed
+						break;
 					default:
 						objectForImplementation.implementation();					
 				}
